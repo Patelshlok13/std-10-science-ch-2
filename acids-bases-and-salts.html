@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acids, Bases and Salts — Class 10 Science</title>
+<meta name="description" content="Chapter 2, Acids Bases and Salts, built for Class 10 students. Every reaction with a way to remember it.">
+<style>
+/* ============================================================
+   ACIDS, BASES AND SALTS — offline teaching page
+   Palette is the pH strip itself. Accent is turmeric,
+   because turmeric is an indicator in this very chapter.
+   ============================================================ */
+
+@property --p { syntax: '<number>'; initial-value: 0; inherits: true; }
+@property --q { syntax: '<number>'; initial-value: 0; inherits: false; }
+
+:root{
+  --void:#060A12;
+  --ink:#0A101C;
+  --panel:#111A2B;
+  --panel-2:#16202F;
+  --line:rgba(255,255,255,.085);
+  --line-2:rgba(255,255,255,.16);
+
+  --txt:#E9EEF8;
+  --dim:#98A6BF;
+  --faint:#66748E;
+
+  --acid:#FF4D5E;
+  --acid-2:#FF8A3D;
+  --base:#3E8BFF;
+  --base-2:#7C6BFF;
+  --neutral:#2FD69B;
+  --gold:#F2B430;
+
+  --tint:var(--gold);
+  --tint-soft:rgba(242,180,48,.14);
+
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Noto Serif",serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,"Courier New",monospace;
+
+  --rail:104px;
+  --maxw:1020px;
+  --r:18px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--void);color:var(--txt);
+  font-family:var(--body);font-size:clamp(16px,1.05vw + 13px,18.5px);
+  line-height:1.72;letter-spacing:.001em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{ /* ambient lab glow, fixed so it never repaints on scroll */
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(880px 620px at 12% -6%, rgba(242,180,48,.13), transparent 62%),
+    radial-gradient(760px 560px at 96% 8%, rgba(62,139,255,.13), transparent 60%),
+    radial-gradient(900px 700px at 50% 108%, rgba(124,107,255,.12), transparent 62%);
+}
+body::after{ /* fine grain, keeps the flat dark from looking plastic */
+  content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,255,255,.055) .6px, transparent .6px);
+  background-size:3px 3px;
+}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+::selection{background:rgba(242,180,48,.3)}
+:focus-visible{outline:2.5px solid var(--gold);outline-offset:3px;border-radius:6px}
+
+/* ---------- shell ---------- */
+.page{position:relative;z-index:2}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding-inline:clamp(20px,5vw,40px)}
+
+/* ---------- the burette rail (signature element) ---------- */
+.burette{
+  position:fixed;left:0;top:0;height:100vh;width:var(--rail);z-index:40;
+  pointer-events:none;
+}
+.burette svg{height:100%;width:100%}
+.bu-track{fill:none;stroke:rgba(255,255,255,.09);stroke-width:2.2;stroke-linecap:round}
+.bu-live{
+  fill:none;stroke:var(--tint);stroke-width:3.4;stroke-linecap:round;
+  filter:drop-shadow(0 0 9px var(--tint));
+  transition:stroke .7s ease;
+}
+.bu-drop{fill:var(--tint);filter:drop-shadow(0 0 10px var(--tint));transition:fill .7s ease}
+.bu-drop-2{fill:#fff;opacity:.9}
+.bu-cap{fill:none;stroke:rgba(255,255,255,.22);stroke-width:1.6}
+.bu-pct{
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);
+}
+.bu-pct b{color:var(--tint);font-weight:600;transition:color .7s ease}
+
+/* mobile: the rail thins to a capillary tube but keeps drawing */
+@media (max-width:820px){ :root{--rail:26px} .bu-pct{display:none} }
+
+.shift{padding-left:var(--rail)}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--tint);display:flex;align-items:center;gap:10px;margin:0 0 18px;font-weight:600;
+}
+.eyebrow::before{
+  content:"";width:26px;height:2px;background:var(--tint);flex:none;border-radius:2px;
+  box-shadow:0 0 12px var(--tint);
+}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.015em;margin:0}
+h2{font-size:clamp(30px,4.6vw,50px);line-height:1.06;margin-bottom:20px}
+h2 em{font-style:italic;color:var(--tint)}
+h3{font-size:clamp(21px,2.5vw,27px);line-height:1.2;margin-bottom:12px}
+h4{font-size:clamp(17px,1.7vw,19.5px);line-height:1.3;margin-bottom:8px;font-family:var(--body);font-weight:700;letter-spacing:0}
+p{margin:0 0 18px;color:#D2DBEA}
+.lede{font-size:clamp(17.5px,1.5vw,21px);line-height:1.6;color:#E2E9F6;max-width:60ch}
+.dim{color:var(--dim)}
+strong{color:#fff;font-weight:650}
+.hl{color:var(--tint);font-weight:600}
+.term{
+  color:#fff;font-weight:600;
+  box-shadow:inset 0 -.42em 0 var(--tint-soft);
+  border-radius:2px;padding:0 1px;
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;min-height:100svh;display:flex;align-items:center;
+  padding:88px 0 64px;overflow:hidden;
+}
+.hero__grid{
+  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:clamp(24px,5vw,64px);align-items:center;width:100%;
+}
+.sign{
+  display:inline-flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  margin-bottom:22px;
+}
+.sign__by{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);
+}
+.sign__name{
+  font-family:var(--display);font-style:italic;font-weight:600;
+  font-size:clamp(26px,3.4vw,38px);line-height:1;color:var(--gold);
+  position:relative;text-shadow:0 0 34px rgba(242,180,48,.5);
+}
+.sign__name::after{
+  content:"";position:absolute;left:0;right:0;bottom:-9px;height:2px;
+  background:linear-gradient(90deg,var(--gold),rgba(242,180,48,0));
+  transform-origin:left;animation:draw 1.1s .5s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.hero h1{
+  font-size:clamp(44px,9.4vw,104px);line-height:.92;letter-spacing:-.035em;margin:0 0 8px;
+}
+.hero h1 .w{display:block}
+.hero h1 .a{color:var(--acid)}
+.hero h1 .b{color:var(--base)}
+.hero h1 .s{color:var(--neutral)}
+.hero h1 .amp{
+  font-style:italic;color:var(--faint);font-size:.5em;display:inline-block;
+  transform:translateY(-.18em);padding:0 .08em;
+}
+.hero__meta{
+  display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0;
+}
+.chip{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 13px;border:1px solid var(--line-2);border-radius:100px;color:var(--dim);
+  background:rgba(255,255,255,.03);
+}
+.chip b{color:var(--txt);font-weight:600}
+.hero__sub{max-width:44ch;margin-top:22px;color:var(--dim);font-size:clamp(16px,1.3vw,18px)}
+
+/* hero 3D stage */
+.stage{
+  position:relative;height:min(60vh,460px);
+  perspective:1100px;perspective-origin:50% 45%;
+}
+.atom{
+  position:absolute;inset:0;transform-style:preserve-3d;
+  animation:atomspin 26s linear infinite;
+  transform:rotateX(18deg) rotateY(0deg);
+}
+@keyframes atomspin{to{transform:rotateX(18deg) rotateY(360deg)}}
+.ring{
+  position:absolute;left:50%;top:50%;width:clamp(200px,26vw,330px);aspect-ratio:1;
+  margin:0;border-radius:50%;border:1.6px solid rgba(255,255,255,.14);
+  transform-style:preserve-3d;
+}
+.ring--1{transform:translate3d(-50%,-50%,0) rotateY(0deg)   rotateX(72deg);border-color:rgba(255,77,94,.5)}
+.ring--2{transform:translate3d(-50%,-50%,0) rotateY(62deg)  rotateX(72deg);border-color:rgba(62,139,255,.5)}
+.ring--3{transform:translate3d(-50%,-50%,0) rotateY(124deg) rotateX(72deg);border-color:rgba(47,214,155,.45)}
+.core{
+  position:absolute;left:50%;top:50%;width:clamp(96px,13vw,138px);aspect-ratio:1;
+  margin:0;border-radius:50%;transform:translate3d(-50%,-50%,0);
+  background:
+    radial-gradient(circle at 32% 28%, #fff 0%, var(--gold) 26%, #B97A0C 68%, #6B4404 100%);
+  box-shadow:0 0 70px rgba(242,180,48,.55), inset -14px -18px 34px rgba(0,0,0,.45);
+  display:grid;place-items:center;
+  font-family:var(--mono);font-weight:700;color:#3A2300;font-size:clamp(15px,1.7vw,19px);
+  letter-spacing:.02em;
+}
+.sat{
+  position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;
+  border-radius:50%;display:grid;place-items:center;transform-style:preserve-3d;
+  font-family:var(--mono);font-size:11px;font-weight:700;color:#04070E;
+  box-shadow:inset -6px -8px 16px rgba(0,0,0,.4);
+}
+.sat span{transform:translateZ(1px)}
+.sat--1{background:radial-gradient(circle at 34% 28%,#fff,#FF8A3D 40%,#B22B36 100%);box-shadow:0 0 32px rgba(255,77,94,.6)}
+.sat--2{background:radial-gradient(circle at 34% 28%,#fff,#6FB0FF 40%,#1F4FA8 100%);box-shadow:0 0 32px rgba(62,139,255,.6)}
+.sat--3{background:radial-gradient(circle at 34% 28%,#fff,#5FE3B6 40%,#12855F 100%);box-shadow:0 0 32px rgba(47,214,155,.55)}
+.scrollcue{
+  display:flex;align-items:center;gap:12px;margin-top:34px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);
+}
+.scrollcue i{
+  width:22px;height:34px;border:1.6px solid var(--line-2);border-radius:12px;position:relative;flex:none;
+}
+.scrollcue i::after{
+  content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:3px;background:var(--gold);
+  transform:translateX(-50%);animation:cue 1.7s ease-in-out infinite;
+}
+@keyframes cue{0%,100%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}60%{opacity:0;transform:translate(-50%,12px)}}
+
+@media (max-width:900px){
+  .hero{min-height:auto;padding:64px 0 40px}
+  .hero__grid{grid-template-columns:1fr;gap:30px}
+  .stage{height:min(46vh,330px)}
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.sec{padding-block:clamp(64px,9vw,116px);position:relative;scroll-margin-top:20px}
+.sec--acid{--tint:var(--acid);--tint-soft:rgba(255,77,94,.15)}
+.sec--base{--tint:var(--base);--tint-soft:rgba(62,139,255,.15)}
+.sec--salt{--tint:var(--neutral);--tint-soft:rgba(47,214,155,.15)}
+.sec--gold{--tint:var(--gold);--tint-soft:rgba(242,180,48,.15)}
+.sec--violet{--tint:var(--base-2);--tint-soft:rgba(124,107,255,.15)}
+.sec__head{max-width:66ch;margin-bottom:clamp(28px,4vw,46px)}
+
+.rule{
+  display:flex;align-items:center;gap:16px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);
+  margin:0;
+}
+.rule::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ---------- glass cards ---------- */
+.card{
+  position:relative;border:1px solid var(--line);border-radius:var(--r);
+  background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  padding:clamp(20px,2.6vw,30px);
+  backdrop-filter:blur(6px);
+  transform-style:preserve-3d;
+}
+.card--tint{border-color:color-mix(in srgb,var(--tint) 34%,transparent)}
+.card__ico{
+  width:44px;height:44px;border-radius:13px;display:grid;place-items:center;margin-bottom:16px;
+  background:var(--tint-soft);border:1px solid color-mix(in srgb,var(--tint) 40%,transparent);
+  font-size:21px;line-height:1;
+}
+.grid{display:grid;gap:clamp(14px,2vw,22px)}
+.grid--2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.grid--3{grid-template-columns:repeat(auto-fit,minmax(232px,1fr))}
+.grid--4{grid-template-columns:repeat(auto-fit,minmax(178px,1fr))}
+
+/* ---------- reaction plaque ---------- */
+.rxn{
+  --p:.5;
+  position:relative;margin:26px 0;border-radius:var(--r);
+  background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  padding:clamp(18px,2.4vw,26px);
+  transform:perspective(1100px) rotateX(calc((.5 - var(--p)) * 7deg)) translateZ(0);
+  will-change:transform;
+}
+.rxn::before{
+  content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,var(--tint),transparent);
+}
+.rxn__tag{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--tint);margin-bottom:12px;font-weight:600;
+}
+.rxn__word{
+  font-family:var(--display);font-style:italic;font-size:clamp(17px,2vw,23px);
+  color:#F2F6FF;margin-bottom:14px;line-height:1.35;
+}
+.rxn__eq{
+  font-family:var(--mono);font-size:clamp(13.5px,1.55vw,18px);
+  color:#fff;background:rgba(0,0,0,.34);border:1px solid var(--line);
+  border-radius:12px;padding:14px 16px;overflow-x:auto;white-space:nowrap;
+  letter-spacing:.01em;line-height:1.9;
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+}
+.rxn__eq + .rxn__eq{margin-top:10px}
+.rxn__note{font-size:14.5px;color:var(--dim);margin:12px 0 0;line-height:1.6}
+.ar{color:var(--tint);padding:0 .35em;font-weight:700}
+.sub{color:var(--gold)}
+.st{color:var(--faint);font-size:.86em}
+
+/* ---------- memory box ---------- */
+.mem{
+  margin-top:18px;border-radius:14px;padding:16px 18px;
+  background:linear-gradient(140deg,rgba(242,180,48,.13),rgba(242,180,48,.04));
+  border:1px solid rgba(242,180,48,.3);
+  border-left:3px solid var(--gold);
+}
+.mem__label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:8px;
+}
+.mem__label::before{content:"◆";font-size:8px}
+.trick{
+  font-family:var(--display);font-style:italic;font-weight:600;
+  font-size:clamp(18px,2.1vw,24px);line-height:1.35;color:#FFE7B2;margin:0 0 8px;
+}
+.mem p{margin:0;font-size:15.5px;color:#E4D8BE;line-height:1.65}
+.mem p + p{margin-top:8px}
+.mem code{font-family:var(--mono);color:#fff;background:rgba(0,0,0,.3);padding:1px 6px;border-radius:5px;font-size:.9em}
+
+/* ---------- small lists ---------- */
+.pts{list-style:none;margin:0 0 0;padding:0}
+.pts li{
+  position:relative;padding-left:26px;margin-bottom:11px;color:#D2DBEA;line-height:1.62;
+}
+.pts li::before{
+  content:"";position:absolute;left:2px;top:.66em;width:9px;height:9px;border-radius:3px;
+  background:var(--tint);opacity:.85;transform:rotate(45deg);
+}
+.pts--tight li{margin-bottom:7px;font-size:15.5px}
+
+/* ---------- fact strip ---------- */
+.facts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:24px}
+.fact{border:1px solid var(--line);border-radius:14px;padding:16px;background:rgba(255,255,255,.03)}
+.fact b{display:block;font-family:var(--mono);font-size:clamp(20px,2.6vw,28px);color:var(--tint);line-height:1;margin-bottom:7px}
+.fact span{font-size:13.5px;color:var(--dim);line-height:1.45;display:block}
+
+/* ============================================================
+   3D: SCROLL-DRIVEN OBJECTS
+   ============================================================ */
+.d3{perspective:1200px;perspective-origin:50% 50%}
+.spin{
+  transform-style:preserve-3d;will-change:transform;
+  transform:rotateY(calc((var(--p) - .5) * 300deg)) rotateX(calc((.5 - var(--p)) * 22deg)) scale(calc(.86 + var(--p) * .22));
+}
+.spin--slow{transform:rotateY(calc((var(--p) - .5) * 150deg)) scale(calc(.9 + var(--p) * .16))}
+.zoom{will-change:transform;transform:scale(calc(.82 + var(--p) * .26)) translateZ(0)}
+
+/* reveal on entry */
+.rise{opacity:0;transform:translate3d(0,34px,0) scale(.985);transition:opacity .75s cubic-bezier(.2,.8,.2,1),transform .75s cubic-bezier(.2,.8,.2,1)}
+.rise.in{opacity:1;transform:none}
+.rise:nth-child(2){transition-delay:.07s}
+.rise:nth-child(3){transition-delay:.14s}
+.rise:nth-child(4){transition-delay:.21s}
+
+/* ---------- test tubes (indicators) ---------- */
+.tubes{display:flex;gap:clamp(14px,4vw,34px);justify-content:center;flex-wrap:wrap;padding:14px 0 6px}
+.tubeset{perspective:900px;text-align:center;width:104px}
+.tube{
+  width:56px;height:158px;margin:0 auto 12px;position:relative;
+  border-radius:9px 9px 27px 27px;overflow:hidden;
+  border:1.5px solid rgba(255,255,255,.28);
+  background:linear-gradient(100deg,rgba(255,255,255,.12),rgba(255,255,255,.02) 40%);
+  transform-style:preserve-3d;
+  transform:rotateY(calc((var(--p) - .5) * 46deg)) rotateZ(calc((var(--p) - .5) * -10deg));
+  transition:transform .4s ease;
+  box-shadow:inset -8px 0 16px rgba(0,0,0,.35), 0 14px 30px rgba(0,0,0,.4);
+}
+.tube__liq{
+  position:absolute;left:0;right:0;bottom:0;height:64%;
+  background:var(--liq,#8FA2BE);
+  transition:background .55s ease, height .55s ease;
+  box-shadow:inset 0 8px 18px rgba(0,0,0,.28);
+}
+.tube__liq::after{
+  content:"";position:absolute;left:0;right:0;top:-5px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,.28);
+}
+.tube__glare{position:absolute;left:9px;top:14px;width:7px;height:64%;border-radius:6px;background:rgba(255,255,255,.3);filter:blur(1.4px)}
+.tubeset b{display:block;font-family:var(--body);font-size:13.5px;color:#fff;font-weight:650;line-height:1.25}
+.tubeset span{display:block;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:4px;min-height:2.4em}
+.switch{display:flex;gap:10px;justify-content:center;margin:22px 0 4px;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--line-2);background:rgba(255,255,255,.05);color:var(--txt);
+  padding:11px 20px;border-radius:100px;cursor:pointer;font-size:14.5px;font-weight:600;
+  transition:transform .18s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease;
+  display:inline-flex;align-items:center;gap:9px;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn[data-on="acid"].on{background:rgba(255,77,94,.2);border-color:var(--acid);box-shadow:0 0 26px rgba(255,77,94,.32)}
+.btn[data-on="base"].on{background:rgba(62,139,255,.2);border-color:var(--base);box-shadow:0 0 26px rgba(62,139,255,.32)}
+.btn[data-on="water"].on{background:rgba(47,214,155,.18);border-color:var(--neutral);box-shadow:0 0 26px rgba(47,214,155,.3)}
+.btn i{width:10px;height:10px;border-radius:50%;background:currentColor;flex:none}
+
+/* ---------- pH drum ---------- */
+.ph{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:clamp(20px,4vw,44px);align-items:center}
+.drum{
+  height:250px;position:relative;
+  perspective:1300px;perspective-origin:50% 50%;
+}
+.drum__inner{
+  position:absolute;inset:0;transform-style:preserve-3d;
+  transform:rotateY(calc((var(--p) - .5) * 34deg)) rotateZ(calc((var(--p) - .5) * -5deg)) scale(calc(.9 + var(--p)*.14));
+  will-change:transform;
+}
+.drum__cyl{
+  position:absolute;left:50%;top:50%;width:min(330px,74vw);height:62px;
+  transform:translate(-50%,-50%);
+  transform-style:preserve-3d;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.face{
+  position:absolute;inset:0;border-radius:11px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 18px;
+  font-family:var(--mono);color:#08101C;font-weight:700;
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.22), inset 0 -18px 30px rgba(0,0,0,.28);
+  backface-visibility:hidden;
+}
+.face b{font-size:26px;letter-spacing:-.02em;min-width:44px}
+.face span{font-size:12px;font-weight:600;text-align:right;line-height:1.25;letter-spacing:.02em;opacity:.86}
+.drum__glass{
+  position:absolute;left:50%;top:50%;width:min(362px,80vw);height:250px;
+  transform:translate(-50%,-50%);border-radius:18px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,10,18,.94) 0%,rgba(6,10,18,0) 26%,rgba(6,10,18,0) 74%,rgba(6,10,18,.94) 100%);
+}
+.drum__mark{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(352px,78vw);height:74px;border-radius:14px;pointer-events:none;
+  box-shadow:0 0 0 1.5px rgba(242,180,48,.55), 0 0 44px rgba(242,180,48,.22);
+}
+.ph__out{text-align:left}
+.ph__num{font-family:var(--mono);font-size:clamp(56px,10vw,86px);font-weight:700;line-height:.9;letter-spacing:-.04em;color:var(--ph-c,#fff);transition:color .5s ease;text-shadow:0 0 44px var(--ph-c,#fff)}
+.ph__name{font-family:var(--display);font-size:clamp(19px,2.3vw,26px);margin:12px 0 6px;color:#fff}
+.ph__nat{
+  display:inline-block;font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  padding:6px 13px;border-radius:100px;border:1px solid currentColor;color:var(--ph-c,#fff);font-weight:700;
+}
+.ph__slide{width:100%;margin-top:24px;-webkit-appearance:none;appearance:none;height:14px;border-radius:100px;outline:none;
+  background:linear-gradient(90deg,#C81E1E,#E03418,#EF5B18,#F58020,#F5A623,#EFCB2E,#C8D62F,#4CAF50,#35B98A,#2A9FA8,#2E7FBF,#2E5FC0,#3C46B4,#4A2FA0,#5B1F86);
+  border:1px solid rgba(255,255,255,.2);cursor:pointer}
+.ph__slide::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:3px solid var(--void);box-shadow:0 4px 14px rgba(0,0,0,.5);cursor:grab}
+.ph__slide::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--void);box-shadow:0 4px 14px rgba(0,0,0,.5);cursor:grab}
+.ph__hint{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:12px;display:flex;justify-content:space-between}
+@media (max-width:840px){ .ph{grid-template-columns:1fr} .ph__out{text-align:center} .ph__hint{justify-content:space-between} }
+
+/* ---------- electrolysis cell ---------- */
+.cell{perspective:1200px;height:290px;position:relative;margin:10px 0 6px}
+.cell__box{
+  position:absolute;left:50%;top:50%;width:min(400px,80vw);height:190px;
+  transform-style:preserve-3d;will-change:transform;
+  transform:translate(-50%,-50%) rotateX(16deg) rotateY(calc((var(--p) - .5) * 90deg));
+}
+.cf{position:absolute;border:1.4px solid rgba(255,255,255,.28)}
+.cf-front,.cf-back{left:0;top:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(120,180,255,.1),rgba(62,139,255,.2));border-radius:6px}
+.cf-front{transform:translateZ(60px)}
+.cf-back{transform:translateZ(-60px)}
+.cf-left,.cf-right{top:0;bottom:0;width:120px;background:rgba(62,139,255,.16)}
+.cf-left{left:50%;transform:translateX(-50%) rotateY(90deg) translateZ(min(200px,40vw))}
+.cf-right{left:50%;transform:translateX(-50%) rotateY(90deg) translateZ(calc(min(200px,40vw) * -1))}
+.cf-bottom{left:0;right:0;height:120px;top:50%;transform:translateY(-50%) rotateX(90deg) translateZ(-95px);background:rgba(62,139,255,.24);border-radius:6px}
+.brine{position:absolute;left:6px;right:6px;bottom:6px;height:66%;transform:translateZ(0);background:linear-gradient(180deg,rgba(120,190,255,.3),rgba(40,90,190,.42));border-radius:0 0 5px 5px}
+.el{position:absolute;top:-26px;width:15px;height:150px;border-radius:4px;transform-style:preserve-3d;
+  background:linear-gradient(180deg,#4A5568,#1A202C);box-shadow:0 0 16px rgba(0,0,0,.6)}
+.el--a{left:27%;transform:translateZ(0)}
+.el--c{right:27%;transform:translateZ(0)}
+.el b{position:absolute;top:-26px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;white-space:nowrap;color:#fff}
+.el--a b{color:#7BE38B}
+.el--c b{color:#7FB4FF}
+.bub{position:absolute;width:7px;height:7px;border-radius:50%;bottom:14%;opacity:0;
+  animation:rise 2.6s linear infinite;animation-delay:var(--d,0s)}
+.bub--cl{background:rgba(140,240,150,.9);box-shadow:0 0 9px rgba(120,240,140,.8)}
+.bub--h{background:rgba(150,200,255,.9);box-shadow:0 0 9px rgba(140,190,255,.8)}
+@keyframes rise{0%{opacity:0;transform:translateY(0) scale(.6)}12%{opacity:1}100%{opacity:0;transform:translateY(-110px) scale(1.25)}}
+.cell__legend{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:8px}
+.leg{border:1px solid var(--line);border-radius:13px;padding:13px 15px;background:rgba(255,255,255,.03)}
+.leg b{display:block;font-family:var(--mono);font-size:14px;margin-bottom:5px}
+.leg span{font-size:13px;color:var(--dim);line-height:1.5}
+
+/* ---------- 3D crystal ---------- */
+.crystal{perspective:900px;height:210px;display:grid;place-items:center;position:relative}
+.cube{width:118px;height:118px;position:relative;transform-style:preserve-3d;
+  transform:rotateX(-22deg) rotateY(calc((var(--p) - .5) * 360deg));will-change:transform}
+.cube .fc{position:absolute;inset:0;border:1.4px solid rgba(255,255,255,.3);border-radius:8px;
+  background:linear-gradient(150deg,rgba(80,150,255,.85),rgba(30,70,190,.9));
+  box-shadow:inset 0 0 30px rgba(255,255,255,.28);transition:background .8s ease,box-shadow .8s ease}
+.cube.hot .fc{background:linear-gradient(150deg,rgba(240,244,250,.92),rgba(190,200,215,.9));box-shadow:inset 0 0 22px rgba(255,255,255,.5)}
+.fc-1{transform:translateZ(59px)}
+.fc-2{transform:rotateY(180deg) translateZ(59px)}
+.fc-3{transform:rotateY(90deg) translateZ(59px)}
+.fc-4{transform:rotateY(-90deg) translateZ(59px)}
+.fc-5{transform:rotateX(90deg) translateZ(59px)}
+.fc-6{transform:rotateX(-90deg) translateZ(59px)}
+.steam{position:absolute;left:50%;bottom:60%;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.7);opacity:0}
+.cube.hot ~ .steam{animation:steamup 2.2s linear infinite}
+@keyframes steamup{0%{opacity:0;transform:translate(-50%,0) scale(.4)}20%{opacity:.75}100%{opacity:0;transform:translate(-50%,-90px) scale(1.5)}}
+
+/* ---------- neutralisation collide ---------- */
+.collide{perspective:900px;height:190px;position:relative;display:grid;place-items:center}
+.ion{
+  position:absolute;top:50%;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--mono);font-weight:700;font-size:17px;color:#06101E;transform-style:preserve-3d;will-change:transform;
+}
+.ion--h{left:50%;background:radial-gradient(circle at 32% 28%,#fff,#FF8A3D 42%,#B22B36 100%);box-shadow:0 0 40px rgba(255,77,94,.55);
+  transform:translate(calc(-50% - (1 - var(--p)) * 130px),-50%) rotateY(calc(var(--p)*180deg))}
+.ion--oh{left:50%;background:radial-gradient(circle at 32% 28%,#fff,#6FB0FF 42%,#1F4FA8 100%);box-shadow:0 0 40px rgba(62,139,255,.55);
+  transform:translate(calc(-50% + (1 - var(--p)) * 130px),-50%) rotateY(calc(var(--p)*-180deg))}
+.ion--w{left:50%;background:radial-gradient(circle at 32% 28%,#fff,#5FE3B6 42%,#12855F 100%);
+  transform:translate(-50%,-50%) scale(var(--p));opacity:calc(var(--p) * var(--p));box-shadow:0 0 48px rgba(47,214,155,.6)}
+
+/* ============================================================
+   QUESTIONS
+   ============================================================ */
+.q{
+  border:1px solid var(--line);border-radius:var(--r);padding:clamp(18px,2.4vw,26px);
+  background:linear-gradient(155deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
+  margin-bottom:18px;
+}
+.q__top{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px}
+.q__n{
+  flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;
+  font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--void);background:var(--tint);
+}
+.q__ask{font-family:var(--display);font-size:clamp(17.5px,2vw,22px);line-height:1.32;color:#fff;margin:3px 0 0}
+.q__ans{padding-left:48px}
+@media (max-width:640px){ .q__ans{padding-left:0} }
+.ansline{
+  font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--tint);
+  margin:0 0 10px;font-weight:700;
+}
+
+/* ---------- recap ---------- */
+.learnt{
+  border-radius:24px;padding:clamp(24px,3.4vw,40px);
+  background:linear-gradient(150deg,rgba(242,180,48,.13),rgba(255,77,94,.07) 46%,rgba(62,139,255,.1));
+  border:1px solid rgba(242,180,48,.3);
+}
+.learnt ul{list-style:none;margin:0;padding:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+.learnt li{
+  position:relative;padding:16px 18px 16px 46px;border-radius:14px;
+  background:rgba(6,10,18,.42);border:1px solid var(--line);font-size:15.5px;line-height:1.6;color:#DCE4F2;
+}
+.learnt li::before{
+  content:counter(l,decimal-leading-zero);counter-increment:l;
+  position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:11.5px;color:var(--gold);font-weight:700;
+}
+.learnt ul{counter-reset:l}
+
+/* ---------- footer ---------- */
+.foot{padding:70px 0 90px;border-top:1px solid var(--line);margin-top:40px}
+.foot__grid{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;align-items:flex-end}
+.foot__name{font-family:var(--display);font-style:italic;font-size:clamp(24px,3vw,34px);color:var(--gold)}
+.foot small{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:block;line-height:2}
+
+/* ---------- chapter map ---------- */
+.mapbtn{
+  position:fixed;right:18px;bottom:18px;z-index:60;width:54px;height:54px;border-radius:50%;
+  border:1px solid var(--line-2);background:rgba(10,16,28,.9);backdrop-filter:blur(10px);
+  display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.5);
+  transition:transform .25s ease;
+}
+.mapbtn:hover{transform:scale(1.07)}
+.mapbtn span,.mapbtn span::before,.mapbtn span::after{
+  display:block;width:20px;height:2px;background:var(--gold);border-radius:2px;position:relative;transition:.3s;
+}
+.mapbtn span::before{content:"";position:absolute;top:-6px}
+.mapbtn span::after{content:"";position:absolute;top:6px}
+.mapbtn.open span{background:transparent}
+.mapbtn.open span::before{transform:translateY(6px) rotate(45deg)}
+.mapbtn.open span::after{transform:translateY(-6px) rotate(-45deg)}
+.map{
+  position:fixed;right:18px;bottom:84px;z-index:59;width:min(290px,calc(100vw - 36px));
+  border:1px solid var(--line-2);border-radius:18px;background:rgba(10,16,28,.96);backdrop-filter:blur(14px);
+  padding:14px;box-shadow:0 24px 60px rgba(0,0,0,.6);
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(.97);transition:.3s cubic-bezier(.2,.8,.2,1);
+  max-height:min(66vh,520px);overflow-y:auto;
+}
+.map.open{opacity:1;visibility:visible;transform:none}
+.map a{
+  display:flex;gap:11px;align-items:center;padding:9px 11px;border-radius:11px;color:var(--dim);
+  text-decoration:none;font-size:14.5px;transition:.2s;
+}
+.map a:hover{background:rgba(255,255,255,.06);color:#fff}
+.map a i{font-family:var(--mono);font-size:10.5px;color:var(--faint);width:20px;flex:none}
+.map h5{margin:6px 10px 8px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:700}
+
+/* ---------- accessibility ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .rise{opacity:1;transform:none}
+  .spin,.spin--slow,.zoom,.tube,.cube,.cell__box,.drum__inner{transform:none !important}
+}
+/* ============================================================
+   LAB OBJECTS
+   ============================================================ */
+.lab{position:relative;display:grid;place-items:center;height:236px;perspective:900px}
+.lab__tube{
+  width:64px;height:182px;border-radius:8px 8px 30px 30px;position:relative;overflow:hidden;
+  border:1.5px solid rgba(255,255,255,.28);
+  background:linear-gradient(100deg,rgba(255,255,255,.13),rgba(255,255,255,.02) 42%);
+  transform-style:preserve-3d;will-change:transform;
+  transform:rotateY(calc((var(--p) - .5) * 110deg)) rotateZ(calc((var(--p) - .5) * 12deg)) scale(calc(.86 + var(--p) * .24));
+  box-shadow:inset -9px 0 18px rgba(0,0,0,.4), 0 18px 36px rgba(0,0,0,.45);
+}
+.lab__liq{position:absolute;left:0;right:0;bottom:0;height:58%;background:linear-gradient(180deg,rgba(255,138,61,.4),rgba(255,77,94,.5))}
+.lab__zinc{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:34px;height:12px;border-radius:4px;background:linear-gradient(180deg,#9AA6B8,#4E5768);box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.bb{
+  position:absolute;bottom:14%;left:var(--x,20px);width:8px;height:8px;border-radius:50%;
+  background:rgba(255,255,255,.8);opacity:0;
+  animation:bubup 2.4s linear infinite;animation-delay:var(--d,0s);
+}
+@keyframes bubup{0%{opacity:0;transform:translateY(0) scale(.5)}14%{opacity:.9}100%{opacity:0;transform:translateY(-118px) scale(1.25)}}
+.lab__pop{
+  position:absolute;top:10px;right:2%;font-family:var(--mono);font-size:12px;color:#FFE7B2;
+  border:1px solid rgba(242,180,48,.45);padding:5px 11px;border-radius:100px;background:rgba(242,180,48,.13);
+  animation:popfx 2.8s ease-in-out infinite;
+}
+@keyframes popfx{0%,68%,100%{opacity:.35;transform:scale(.95)}80%{opacity:1;transform:scale(1.09)}}
+.lab__cap{position:absolute;bottom:2px;font-family:var(--mono);font-size:12px;color:var(--dim);text-align:center}
+
+.beaker{
+  width:116px;height:116px;border-radius:6px 6px 16px 16px;position:relative;overflow:hidden;
+  border:1.5px solid rgba(255,255,255,.3);
+  background:linear-gradient(100deg,rgba(255,255,255,.11),rgba(255,255,255,.02));
+  transform-style:preserve-3d;will-change:transform;
+  transform:rotateY(calc((var(--p) - .5) * 66deg)) scale(calc(.9 + var(--p) * .2));
+  box-shadow:0 18px 34px rgba(0,0,0,.42);
+}
+.beaker__liq{position:absolute;left:0;right:0;bottom:0;height:62%;background:rgba(150,200,255,.25);transition:background .9s ease}
+.beaker.milky .beaker__liq{background:rgba(255,255,255,.88)}
+.beaker.clear2 .beaker__liq{background:rgba(150,200,255,.32)}
+.bb--co2{background:rgba(210,235,255,.85);animation-duration:2.9s}
+
+.cube--mini{width:78px;height:78px}
+.cube--mini .fc{background:linear-gradient(150deg,var(--fc1),var(--fc2))}
+.cube--mini .fc-1{transform:translateZ(39px)}
+.cube--mini .fc-2{transform:rotateY(180deg) translateZ(39px)}
+.cube--mini .fc-3{transform:rotateY(90deg) translateZ(39px)}
+.cube--mini .fc-4{transform:rotateY(-90deg) translateZ(39px)}
+.cube--mini .fc-5{transform:rotateX(90deg) translateZ(39px)}
+.cube--mini .fc-6{transform:rotateX(-90deg) translateZ(39px)}
+.d3 .cube--mini{margin:0 auto}
+
+.steam{animation-delay:var(--d,0s)}
+
+/* hero satellites orbit, label always facing the reader */
+.sat--1{animation:orb1 15s linear infinite}
+.sat--2{animation:orb2 19s linear infinite}
+.sat--3{animation:orb3 23s linear infinite}
+@keyframes orb1{from{transform:rotateY(0deg) translateZ(150px) rotateY(0deg)}to{transform:rotateY(360deg) translateZ(150px) rotateY(-360deg)}}
+@keyframes orb2{from{transform:rotateY(120deg) translateZ(126px) rotateY(-120deg)}to{transform:rotateY(480deg) translateZ(126px) rotateY(-480deg)}}
+@keyframes orb3{from{transform:rotateY(240deg) translateZ(170px) rotateY(-240deg)}to{transform:rotateY(600deg) translateZ(170px) rotateY(-600deg)}}
+@media (max-width:900px){
+  @keyframes orb1{from{transform:rotateY(0deg) translateZ(108px) rotateY(0deg)}to{transform:rotateY(360deg) translateZ(108px) rotateY(-360deg)}}
+  @keyframes orb2{from{transform:rotateY(120deg) translateZ(92px) rotateY(-120deg)}to{transform:rotateY(480deg) translateZ(92px) rotateY(-480deg)}}
+  @keyframes orb3{from{transform:rotateY(240deg) translateZ(122px) rotateY(-240deg)}to{transform:rotateY(600deg) translateZ(122px) rotateY(-600deg)}}
+  .sat{width:52px;height:52px;margin:-26px 0 0 -26px;font-size:10px}
+}
+
+/* pH strip */
+.strip{display:grid;grid-template-columns:repeat(15,1fr);gap:3px;margin-top:28px}
+.strip button{
+  border:0;border-radius:7px;padding:15px 0 11px;cursor:pointer;
+  font-family:var(--mono);font-size:11.5px;font-weight:700;color:#08101C;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease;
+}
+.strip button:hover{transform:translateY(-4px)}
+.strip button.on{transform:translateY(-6px);box-shadow:0 0 0 2px #fff, 0 10px 22px rgba(0,0,0,.5)}
+@media (max-width:560px){ .strip{gap:2px} .strip button{font-size:9px;padding:11px 0 8px;border-radius:5px} }
+</style>
+
+</head>
+<body>
+<!-- ============ BURETTE RAIL ============ -->
+<div class="burette" aria-hidden="true">
+  <svg viewBox="0 0 30 1000" preserveAspectRatio="xMidYMid meet">
+    <g class="bu-cap" opacity=".55">
+      <path d="M11 100h8M11 200h8M11 300h8M11 400h8M11 500h8M11 600h8M11 700h8M11 800h8M11 900h8"/>
+    </g>
+    <path id="buTrack" class="bu-track" d="M15 0 C15 60 6 90 6 150 C6 210 24 240 24 300 C24 360 6 390 6 450 C6 510 24 540 24 600 C24 660 6 690 6 750 C6 810 24 840 24 900 C24 950 15 970 15 1000"/>
+    <path id="buLive" class="bu-live" d="M15 0 C15 60 6 90 6 150 C6 210 24 240 24 300 C24 360 6 390 6 450 C6 510 24 540 24 600 C24 660 6 690 6 750 C6 810 24 840 24 900 C24 950 15 970 15 1000"/>
+    <circle id="buDrop" class="bu-drop" cx="15" cy="0" r="5"/>
+    <circle id="buDrop2" class="bu-drop-2" cx="15" cy="0" r="1.7"/>
+  </svg>
+  <div class="bu-pct"><b id="buPct">00</b>%</div>
+</div>
+
+<main class="page shift">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div>
+        <div class="sign">
+          <span class="sign__by">Prepared &amp; presented by</span>
+          <span class="sign__name">Shlok Patel</span>
+        </div>
+        <h1>
+          <span class="w a">Acids,</span>
+          <span class="w b">Bases</span>
+          <span class="w"><span class="amp">&amp;</span><span class="s">Salts</span></span>
+        </h1>
+        <p class="hero__sub">Three families of chemicals, one simple rule between them. Learn the reactions once, remember them for the board exam.</p>
+        <div class="hero__meta">
+          <span class="chip">Class <b>10</b></span>
+          <span class="chip">Science &middot; Chapter <b>2</b></span>
+          <span class="chip"><b>16</b> ways to remember</span>
+        </div>
+        <div class="scrollcue"><i></i><span>Scroll to begin the titration</span></div>
+      </div>
+
+      <div class="stage" aria-hidden="true">
+        <div class="atom">
+          <div class="ring ring--1"></div>
+          <div class="ring ring--2"></div>
+          <div class="ring ring--3"></div>
+          <div class="core">H<sup>+</sup></div>
+          <div class="sat sat--1" id="sat1"><span>HCl</span></div>
+          <div class="sat sat--2" id="sat2"><span>NaOH</span></div>
+          <div class="sat sat--3" id="sat3"><span>NaCl</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 1. THE OPENING PUZZLE ============ -->
+<section class="sec sec--gold" id="start">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">Where the chapter starts</p>
+      <h2>Someone at home has <em>acidity</em> after overeating. What do you give them?</h2>
+      <p class="lede">Lemon juice, vinegar, or baking soda solution &mdash; only one of these actually helps. Before you read ahead, pick one in your head.</p>
+    </div>
+
+    <div class="grid grid--3">
+      <div class="card rise">
+        <div class="card__ico" style="--tint:var(--acid)">&#127819;</div>
+        <h4>Lemon juice</h4>
+        <p class="dim" style="margin:0;font-size:15.5px">Sour. It already contains citric acid. Adding acid to an acid problem makes it worse.</p>
+      </div>
+      <div class="card rise">
+        <div class="card__ico" style="--tint:var(--acid)">&#129379;</div>
+        <h4>Vinegar</h4>
+        <p class="dim" style="margin:0;font-size:15.5px">Also sour &mdash; acetic acid. Same mistake, different bottle.</p>
+      </div>
+      <div class="card card--tint rise">
+        <div class="card__ico">&#10004;&#65039;</div>
+        <h4>Baking soda solution</h4>
+        <p class="dim" style="margin:0;font-size:15.5px">Basic in nature. It cancels the extra acid in the stomach. This is the correct answer.</p>
+      </div>
+    </div>
+
+    <div class="mem rise" style="margin-top:26px">
+      <div class="mem__label">The one idea that runs through the whole chapter</div>
+      <p class="trick">An acid and a base cancel each other out.</p>
+      <p>Every single reaction in this chapter is a variation of that sentence. Acids are <strong>sour</strong> and turn blue litmus <strong>red</strong>. Bases are <strong>bitter</strong> and turn red litmus <strong>blue</strong>. Put them together and both disappear, leaving salt and water behind.</p>
+    </div>
+
+    <div class="facts rise">
+      <div class="fact"><b>Sour</b><span>Taste of an acid &mdash; curd, lemon, tamarind</span></div>
+      <div class="fact"><b>Bitter</b><span>Taste of a base &mdash; and it feels soapy</span></div>
+      <div class="fact"><b>Never</b><span>Taste or touch a lab acid or base to test it. Use an indicator</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. INDICATORS ============ -->
+<section class="sec sec--violet" id="indicators">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.1 &middot; Indicators</p>
+      <h2>Chemicals that <em>tell on</em> acids and bases</h2>
+      <p class="lede">An indicator is a dye that changes colour depending on what it is dipped into. It is how we test a substance without tasting it.</p>
+    </div>
+
+    <div class="card rise" data-3d>
+      <div class="tubes">
+        <div class="tubeset">
+          <div class="tube" data-ind="blue"><div class="tube__liq"></div><div class="tube__glare"></div></div>
+          <b>Blue litmus</b><span data-out="blue">stays blue</span>
+        </div>
+        <div class="tubeset">
+          <div class="tube" data-ind="red"><div class="tube__liq"></div><div class="tube__glare"></div></div>
+          <b>Red litmus</b><span data-out="red">stays red</span>
+        </div>
+        <div class="tubeset">
+          <div class="tube" data-ind="phen"><div class="tube__liq"></div><div class="tube__glare"></div></div>
+          <b>Phenolphthalein</b><span data-out="phen">colourless</span>
+        </div>
+        <div class="tubeset">
+          <div class="tube" data-ind="mo"><div class="tube__liq"></div><div class="tube__glare"></div></div>
+          <b>Methyl orange</b><span data-out="mo">orange</span>
+        </div>
+      </div>
+      <div class="switch">
+        <button class="btn" data-on="acid" style="color:var(--acid)"><i></i>Add an acid</button>
+        <button class="btn on" data-on="water" style="color:var(--neutral)"><i></i>Neutral</button>
+        <button class="btn" data-on="base" style="color:var(--base)"><i></i>Add a base</button>
+      </div>
+      <p class="dim" style="text-align:center;font-size:14px;margin:14px 0 0">Tap a button. The tubes turn as they are dipped.</p>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">How to remember all four colours</div>
+      <p class="trick">&ldquo;Acid Bites Blue &middot; Base Bites Red.&rdquo;</p>
+      <p>Whatever litmus you dip, the acid drags it to <strong>red</strong> and the base drags it to <strong>blue</strong>. So the final colour itself is the answer: <code>red = acid</code>, <code>blue = base</code>.</p>
+      <p>For the other two: <strong>P</strong>henolphthalein turns <strong>P</strong>ink in a base (P&nbsp;&rarr;&nbsp;P), and methyl orange goes <strong>red when angry</strong> &mdash; angry means acid.</p>
+    </div>
+
+    <div class="grid grid--2" style="margin-top:30px">
+      <div class="card rise">
+        <div class="card__ico">&#127807;</div>
+        <h4>Natural indicators</h4>
+        <p style="font-size:15.5px">Litmus is a purple dye extracted from <span class="term">lichen</span>, a plant of the division <span class="term">Thallophyta</span>. In a neutral solution it stays purple. Turmeric is another natural indicator &mdash; a curry stain on white cloth turns reddish-brown when basic soap is scrubbed on it, and goes yellow again on washing with plenty of water.</p>
+        <p style="font-size:15.5px;margin-bottom:0">Red cabbage leaves, coloured petals of <em>Hydrangea</em>, <em>Petunia</em> and <em>Geranium</em> also work as acid&ndash;base indicators.</p>
+      </div>
+      <div class="card rise">
+        <div class="card__ico">&#128067;</div>
+        <h4>Olfactory indicators</h4>
+        <p style="font-size:15.5px">Some substances change their <strong>smell</strong> in acidic or basic media. These are called olfactory indicators &mdash; useful for students who cannot see colour changes.</p>
+        <ul class="pts pts--tight">
+          <li><strong>Onion</strong> &mdash; the smell vanishes in a base, stays in an acid</li>
+          <li><strong>Vanilla essence</strong> &mdash; smell disappears in a base</li>
+          <li><strong>Clove oil</strong> &mdash; behaves the same way</li>
+        </ul>
+        <div class="mem" style="margin-top:14px">
+          <div class="mem__label">Shortcut</div>
+          <p class="trick" style="font-size:19px">Nose test = <strong>O V C</strong></p>
+          <p><strong>O</strong>nion, <strong>V</strong>anilla, <strong>C</strong>love. Bases kill the smell; acids keep it.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="rule" style="margin-top:40px">Synthetic indicators used in the lab &mdash; methyl orange &middot; phenolphthalein</p>
+  </div>
+</section>
+
+<!-- ============ 3. ACIDS + METALS ============ -->
+<section class="sec sec--acid" id="metals">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.1.2 &middot; Reaction with metals</p>
+      <h2>Drop a metal into an acid and you get a <em>pop</em></h2>
+      <p class="lede">Zinc granules in dilute sulphuric acid start fizzing. Pass that gas through soap solution, bring a burning candle near a gas-filled bubble, and it burns with a sharp pop sound. That pop is the signature of hydrogen.</p>
+    </div>
+
+    <div class="grid grid--2" style="align-items:center">
+      <div class="d3 rise" data-3d>
+        <div class="lab">
+          <div class="lab__tube">
+            <div class="lab__liq"></div>
+            <div class="lab__zinc"></div>
+            <span class="bb" style="--x:14px;--d:0s"></span>
+            <span class="bb" style="--x:30px;--d:.4s"></span>
+            <span class="bb" style="--x:22px;--d:.9s"></span>
+            <span class="bb" style="--x:38px;--d:1.3s"></span>
+            <span class="bb" style="--x:18px;--d:1.7s"></span>
+          </div>
+          <div class="lab__pop">H<sub>2</sub> &middot; pop!</div>
+        </div>
+      </div>
+
+      <div class="rise">
+        <div class="rxn" data-3d>
+          <div class="rxn__tag">The rule</div>
+          <div class="rxn__word">Acid + Metal <span class="ar">&rarr;</span> Salt + Hydrogen gas</div>
+          <div class="rxn__eq">Zn <span class="st">(s)</span> + H<sub class="sub">2</sub>SO<sub class="sub">4</sub> <span class="st">(dil.)</span> <span class="ar">&rarr;</span> ZnSO<sub class="sub">4</sub> <span class="st">(aq)</span> + H<sub class="sub">2</sub> <span class="st">(g)</span></div>
+          <div class="rxn__eq">Zn <span class="st">(s)</span> + 2HCl <span class="st">(dil.)</span> <span class="ar">&rarr;</span> ZnCl<sub class="sub">2</sub> <span class="st">(aq)</span> + H<sub class="sub">2</sub> <span class="st">(g)</span></div>
+          <p class="rxn__note">The same thing happens with HNO<sub>3</sub> and CH<sub>3</sub>COOH. The metal simply pushes the hydrogen out of the acid and takes its place &mdash; what is left behind is a salt.</p>
+        </div>
+        <div class="mem">
+          <div class="mem__label">Remember it like this</div>
+          <p class="trick">M A S H &mdash; Metal + Acid gives Salt + Hydrogen.</p>
+          <p>Say &ldquo;MASH&rdquo; once and the whole equation is in order: the two things you mix (M, A) and the two things you get (S, H).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid--2" style="margin-top:36px">
+      <div class="card rise">
+        <h4>How to test that the gas is hydrogen</h4>
+        <ul class="pts pts--tight">
+          <li>Bubbles appear on the surface of the zinc granules</li>
+          <li>Pass the gas through soap solution &mdash; bubbles form because the gas is trapped in soapy film</li>
+          <li>Bring a burning candle near a gas-filled bubble</li>
+          <li>It burns with a <strong>pop sound</strong> &mdash; that confirms hydrogen</li>
+        </ul>
+      </div>
+      <div class="card rise">
+        <h4>Bases with metals &mdash; the odd case</h4>
+        <p style="font-size:15.5px">Zinc also reacts with a base. Sodium hydroxide gives hydrogen gas again, plus a salt called <span class="term">sodium zincate</span>. Such reactions are <strong>not possible with all metals</strong>.</p>
+        <div class="rxn" style="margin:14px 0 0" data-3d>
+          <div class="rxn__eq">2NaOH <span class="st">(aq)</span> + Zn <span class="st">(s)</span> <span class="ar">&rarr;</span> Na<sub class="sub">2</sub>ZnO<sub class="sub">2</sub> <span class="st">(s)</span> + H<sub class="sub">2</sub> <span class="st">(g)</span></div>
+          <p class="rxn__note">Na<sub>2</sub>ZnO<sub>2</sub> is sodium zincate.</p>
+        </div>
+        <div class="mem">
+          <div class="mem__label">Remember it like this</div>
+          <p class="trick">Zinc is the show-off &mdash; it reacts with <em>both</em> sides.</p>
+          <p>Acid or base, zinc still releases H<sub>2</sub>. And the product keeps zinc's own name inside it: sodium <strong>zinc</strong>ate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. CARBONATES ============ -->
+<section class="sec sec--acid" id="carbonates">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.1.3 &middot; Carbonates and hydrogencarbonates</p>
+      <h2>Add acid to a carbonate and it <em>fizzes like a cold drink</em></h2>
+      <p class="lede">Sodium carbonate and sodium hydrogencarbonate both effervesce when dilute HCl is poured on them. The gas coming out is carbon dioxide, and there is a beautiful two-step test for it.</p>
+    </div>
+
+    <div class="rxn rise" data-3d>
+      <div class="rxn__tag">The rule</div>
+      <div class="rxn__word">Metal carbonate <span style="color:var(--faint)">/</span> Metal hydrogencarbonate + Acid <span class="ar">&rarr;</span> Salt + Carbon dioxide + Water</div>
+      <div class="rxn__eq">Na<sub class="sub">2</sub>CO<sub class="sub">3</sub> <span class="st">(s)</span> + 2HCl <span class="st">(aq)</span> <span class="ar">&rarr;</span> 2NaCl <span class="st">(aq)</span> + H<sub class="sub">2</sub>O <span class="st">(l)</span> + CO<sub class="sub">2</sub> <span class="st">(g)</span></div>
+      <div class="rxn__eq">NaHCO<sub class="sub">3</sub> <span class="st">(s)</span> + HCl <span class="st">(aq)</span> <span class="ar">&rarr;</span> NaCl <span class="st">(aq)</span> + H<sub class="sub">2</sub>O <span class="st">(l)</span> + CO<sub class="sub">2</sub> <span class="st">(g)</span></div>
+      <p class="rxn__note">Limestone, chalk and marble are all different forms of the same compound &mdash; calcium carbonate, CaCO<sub>3</sub>.</p>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">Remember it like this</div>
+      <p class="trick">Carbonate + acid = a shaken soda bottle.</p>
+      <p>Salt stays in the glass, the <strong>gas escapes</strong>, a little <strong>water</strong> is left. Products in order: <code>Salt + CO&#8322; + Water</code>. If you can picture the fizz, you can never forget the CO<sub>2</sub>.</p>
+    </div>
+
+    <div class="grid grid--2" style="margin-top:36px;align-items:center">
+      <div class="d3 rise" data-3d>
+        <div class="lab">
+          <div class="beaker" id="limeBeaker">
+            <div class="beaker__liq"></div>
+            <span class="bb bb--co2" style="--x:24px;--d:0s"></span>
+            <span class="bb bb--co2" style="--x:52px;--d:.6s"></span>
+            <span class="bb bb--co2" style="--x:38px;--d:1.1s"></span>
+          </div>
+          <div class="lab__cap" id="limeCap">Clear lime water</div>
+        </div>
+        <div class="switch" style="margin-top:8px">
+          <button class="btn" id="limeBtn">Pass CO<sub>2</sub> through it</button>
+        </div>
+      </div>
+
+      <div class="rise">
+        <h3>The lime water test</h3>
+        <p style="font-size:16px">Lime water is calcium hydroxide solution. Pass the CO<sub>2</sub> through it and it turns <strong>milky</strong> &mdash; that white precipitate is calcium carbonate.</p>
+        <div class="rxn" data-3d>
+          <div class="rxn__eq">Ca(OH)<sub class="sub">2</sub> <span class="st">(aq)</span> + CO<sub class="sub">2</sub> <span class="st">(g)</span> <span class="ar">&rarr;</span> CaCO<sub class="sub">3</sub> <span class="st">(s)</span> + H<sub class="sub">2</sub>O <span class="st">(l)</span></div>
+          <p class="rxn__note"><span style="color:var(--dim)">lime water</span> &nbsp;&rarr;&nbsp; <span style="color:#fff">white precipitate</span></p>
+        </div>
+        <p style="font-size:16px">Keep passing <strong>excess</strong> CO<sub>2</sub> and the milkiness disappears again, because the insoluble carbonate turns into a soluble hydrogencarbonate.</p>
+        <div class="rxn" data-3d>
+          <div class="rxn__eq">CaCO<sub class="sub">3</sub> <span class="st">(s)</span> + H<sub class="sub">2</sub>O <span class="st">(l)</span> + CO<sub class="sub">2</sub> <span class="st">(g)</span> <span class="ar">&rarr;</span> Ca(HCO<sub class="sub">3</sub>)<sub class="sub">2</sub> <span class="st">(aq)</span></div>
+          <p class="rxn__note">soluble in water &mdash; so the solution goes clear again</p>
+        </div>
+        <div class="mem">
+          <div class="mem__label">Remember it like this</div>
+          <p class="trick">Milky, then clear. Too much gas dissolves the milk.</p>
+          <p>A little CO<sub>2</sub> makes a solid you can see. Excess CO<sub>2</sub> makes it soluble and it vanishes. <code>CaCO&#8323; = milk</code>, <code>Ca(HCO&#8323;)&#8322; = clear</code>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. NEUTRALISATION ============ -->
+<section class="sec sec--salt" id="neutral">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.1.4 &middot; Acids and bases with each other</p>
+      <h2>Two enemies meet and both <em>disappear</em></h2>
+      <p class="lede">Take dilute NaOH with a few drops of phenolphthalein and it turns pink. Add dilute HCl drop by drop and the pink fades away &mdash; because the base is no longer a base. Add NaOH again and the pink comes back.</p>
+    </div>
+
+    <div class="collide d3 rise" data-3d aria-hidden="true">
+      <div class="ion ion--h">H<sup>+</sup></div>
+      <div class="ion ion--oh">OH<sup>&minus;</sup></div>
+      <div class="ion ion--w">H<sub>2</sub>O</div>
+    </div>
+    <p class="dim" style="text-align:center;font-size:14px;margin-top:-6px">Scroll slowly &mdash; the two ions come together and become water.</p>
+
+    <div class="rxn rise" data-3d>
+      <div class="rxn__tag">Neutralisation reaction</div>
+      <div class="rxn__word">Base + Acid <span class="ar">&rarr;</span> Salt + Water</div>
+      <div class="rxn__eq">NaOH <span class="st">(aq)</span> + HCl <span class="st">(aq)</span> <span class="ar">&rarr;</span> NaCl <span class="st">(aq)</span> + H<sub class="sub">2</sub>O <span class="st">(l)</span></div>
+      <p class="rxn__note">The effect of a base is nullified by an acid and vice-versa. This is the reaction that explains the antacid you take for acidity.</p>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">Remember it like this</div>
+      <p class="trick">&ldquo;A Boy Sells Water&rdquo; &mdash; Acid + Base &rarr; Salt + Water.</p>
+      <p>Four words, four chemicals, same order every time. Whenever a question says <em>neutralisation</em>, write <code>Salt + Water</code> on the right side before you think about anything else.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. OXIDES ============ -->
+<section class="sec sec--base" id="oxides">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.1.5 &amp; 2.1.6 &middot; Oxides</p>
+      <h2>Metal oxides behave like <em>bases</em>. Non-metal oxides behave like <em>acids</em>.</h2>
+      <p class="lede">Add dilute hydrochloric acid slowly to black copper oxide and the powder dissolves, leaving a blue-green solution. That colour is copper(II) chloride.</p>
+    </div>
+
+    <div class="grid grid--2" style="align-items:start">
+      <div class="rise">
+        <div class="d3" data-3d style="margin-bottom:8px">
+          <div class="cube cube--mini" style="--fc1:#2E7FBF;--fc2:#1B4F8F">
+            <div class="fc fc-1"></div><div class="fc fc-2"></div><div class="fc fc-3"></div>
+            <div class="fc fc-4"></div><div class="fc fc-5"></div><div class="fc fc-6"></div>
+          </div>
+        </div>
+        <div class="rxn" data-3d>
+          <div class="rxn__tag">Metal oxide &mdash; a basic oxide</div>
+          <div class="rxn__word">Metal oxide + Acid <span class="ar">&rarr;</span> Salt + Water</div>
+          <div class="rxn__eq">CuO <span class="st">(s)</span> + 2HCl <span class="st">(aq)</span> <span class="ar">&rarr;</span> CuCl<sub class="sub">2</sub> <span class="st">(aq)</span> + H<sub class="sub">2</sub>O <span class="st">(l)</span></div>
+          <p class="rxn__note">Black copper oxide dissolves; the blue-green colour is copper(II) chloride. Because metallic oxides react with acids to give salt and water &mdash; exactly like a base does &mdash; they are called <strong>basic oxides</strong>.</p>
+        </div>
+      </div>
+
+      <div class="rise">
+        <div class="d3" data-3d style="margin-bottom:8px">
+          <div class="cube cube--mini" style="--fc1:#E0603A;--fc2:#8F2A2A">
+            <div class="fc fc-1"></div><div class="fc fc-2"></div><div class="fc fc-3"></div>
+            <div class="fc fc-4"></div><div class="fc fc-5"></div><div class="fc fc-6"></div>
+          </div>
+        </div>
+        <div class="rxn" data-3d>
+          <div class="rxn__tag">Non-metal oxide &mdash; an acidic oxide</div>
+          <div class="rxn__word">Non-metallic oxide + Base <span class="ar">&rarr;</span> Salt + Water</div>
+          <div class="rxn__eq">Ca(OH)<sub class="sub">2</sub> <span class="st">(aq)</span> + CO<sub class="sub">2</sub> <span class="st">(g)</span> <span class="ar">&rarr;</span> CaCO<sub class="sub">3</sub> <span class="st">(s)</span> + H<sub class="sub">2</sub>O <span class="st">(l)</span></div>
+          <p class="rxn__note">Calcium hydroxide is a base and carbon dioxide is a non-metallic oxide. Since this is just like a base reacting with an acid, non-metallic oxides are <strong>acidic in nature</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">Remember it like this</div>
+      <p class="trick">Opposites attract.</p>
+      <p><strong>Metal</strong> oxide is basic, so it needs an <strong>acid</strong> to react. <strong>Non-metal</strong> oxide is acidic, so it needs a <strong>base</strong>. Both give the same pair of products: <code>Salt + Water</code>.</p>
+      <p>Quick check: metals sit on the left of the periodic table and give bases; non-metals sit on the right and give acids.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. WHAT THEY HAVE IN COMMON ============ -->
+<section class="sec sec--violet" id="common">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.2 &middot; What do all acids and all bases have in common?</p>
+      <h2>Every acid is hiding the <em>same ion</em></h2>
+      <p class="lede">Fix two nails in a cork, connect them to a 6&nbsp;volt battery through a bulb and a switch, and dip them in different solutions. Dilute HCl lights the bulb. Glucose and alcohol solutions do not.</p>
+    </div>
+
+    <div class="grid grid--2">
+      <div class="card card--tint rise">
+        <div class="card__ico">&#128161;</div>
+        <h4>The bulb glows &mdash; so current is flowing</h4>
+        <p style="font-size:15.5px">Glowing means there is a flow of electric current through the solution, and that current is carried by <strong>ions</strong>. Glucose and alcohol contain hydrogen too, but their solutions do not conduct &mdash; so they are not acids.</p>
+        <p style="font-size:15.5px;margin-bottom:0">Acids contain H<sup>+</sup> as the cation, along with an anion: Cl<sup>&minus;</sup> in HCl, NO<sub>3</sub><sup>&minus;</sup> in HNO<sub>3</sub>, SO<sub>4</sub><sup>2&minus;</sup> in H<sub>2</sub>SO<sub>4</sub>, CH<sub>3</sub>COO<sup>&minus;</sup> in CH<sub>3</sub>COOH. The common cation is always H<sup>+</sup>.</p>
+      </div>
+      <div class="card rise">
+        <div class="card__ico">&#128167;</div>
+        <h4>No water, no acid</h4>
+        <p style="font-size:15.5px">Dry HCl gas does not change the colour of dry blue litmus paper. Moist litmus paper turns red. So the H<sup>+</sup> ion cannot separate from the HCl molecule unless water is present.</p>
+        <div class="rxn" style="margin:12px 0 0" data-3d>
+          <div class="rxn__eq">HCl + H<sub class="sub">2</sub>O <span class="ar">&rarr;</span> H<sub class="sub">3</sub>O<sup class="sub">+</sup> + Cl<sup class="sub">&minus;</sup></div>
+          <div class="rxn__eq">H<sup class="sub">+</sup> + H<sub class="sub">2</sub>O <span class="ar">&rarr;</span> H<sub class="sub">3</sub>O<sup class="sub">+</sup></div>
+          <p class="rxn__note">Hydrogen ions cannot exist alone. They always attach to a water molecule, so we write them as H<sup>+</sup>(aq) or as the hydronium ion H<sub>3</sub>O<sup>+</sup>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">Remember it like this</div>
+      <p class="trick">H<sup>+</sup> never travels alone &mdash; it always holds water's hand.</p>
+      <p>That handshake is the hydronium ion, <code>H&#8323;O&#8314;</code>. It also explains the exam favourite: <em>dry HCl gas has no effect on dry litmus, because without water there is no H<sup>+</sup>.</em></p>
+    </div>
+
+    <h3 class="rise" style="margin-top:46px">And every base is hiding OH<sup>&minus;</sup></h3>
+    <div class="rxn rise" data-3d>
+      <div class="rxn__eq">NaOH <span class="st">(s)</span> <span class="ar">&mdash;H<sub class="sub">2</sub>O&rarr;</span> Na<sup class="sub">+</sup> <span class="st">(aq)</span> + OH<sup class="sub">&minus;</sup> <span class="st">(aq)</span></div>
+      <div class="rxn__eq">KOH <span class="st">(s)</span> <span class="ar">&mdash;H<sub class="sub">2</sub>O&rarr;</span> K<sup class="sub">+</sup> <span class="st">(aq)</span> + OH<sup class="sub">&minus;</sup> <span class="st">(aq)</span></div>
+      <div class="rxn__eq">Mg(OH)<sub class="sub">2</sub> <span class="st">(s)</span> <span class="ar">&mdash;H<sub class="sub">2</sub>O&rarr;</span> Mg<sup class="sub">2+</sup> <span class="st">(aq)</span> + 2OH<sup class="sub">&minus;</sup> <span class="st">(aq)</span></div>
+      <p class="rxn__note">Bases generate hydroxide ions in water. Bases that <strong>dissolve</strong> in water are called <span class="term">alkalis</span> &mdash; and all bases do not dissolve in water.</p>
+    </div>
+
+    <div class="grid grid--2" style="margin-top:26px">
+      <div class="card rise">
+        <h4>Alkali &ne; base</h4>
+        <p style="font-size:15.5px;margin-bottom:0">Every alkali is a base, but not every base is an alkali. Alkalis are soapy to touch, bitter and corrosive. Never taste or touch them &mdash; they can cause harm.</p>
+      </div>
+      <div class="card rise">
+        <h4>Neutralisation, seen as ions</h4>
+        <div class="rxn" style="margin:0" data-3d>
+          <div class="rxn__eq">Acid + Base <span class="ar">&rarr;</span> Salt + Water</div>
+          <div class="rxn__eq">HX + MOH <span class="ar">&rarr;</span> MX + HOH</div>
+          <div class="rxn__eq">H<sup class="sub">+</sup><span class="st">(aq)</span> + OH<sup class="sub">&minus;</sup><span class="st">(aq)</span> <span class="ar">&rarr;</span> H<sub class="sub">2</sub>O <span class="st">(l)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. DILUTION ============ -->
+<section class="sec sec--acid" id="dilution">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">Mixing with water</p>
+      <h2>The rule that prevents <em>burns</em></h2>
+      <p class="lede">Dissolving an acid or a base in water is a highly exothermic process. Concentrated nitric acid or sulphuric acid must always be added slowly to water, with constant stirring.</p>
+    </div>
+
+    <div class="grid grid--2">
+      <div class="card rise" style="border-color:rgba(255,77,94,.4)">
+        <div class="card__ico" style="--tint:var(--acid)">&#9888;&#65039;</div>
+        <h4>If you add water to concentrated acid</h4>
+        <ul class="pts pts--tight">
+          <li>The heat generated may make the mixture splash out</li>
+          <li>It can cause burns</li>
+          <li>The glass container may break because of excessive local heating</li>
+        </ul>
+        <p style="font-size:15px;color:var(--dim);margin:12px 0 0">This is why concentrated acid and sodium hydroxide bottles carry a corrosive warning sign.</p>
+      </div>
+      <div class="card rise">
+        <div class="card__ico">&#128137;</div>
+        <h4>What dilution actually does</h4>
+        <p style="font-size:15.5px;margin-bottom:0">Mixing an acid or base with water lowers the concentration of ions &mdash; H<sub>3</sub>O<sup>+</sup> or OH<sup>&minus;</sup> &mdash; per unit volume. That process is called dilution, and we say the acid or the base has been <span class="term">diluted</span>.</p>
+      </div>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">Remember it like this</div>
+      <p class="trick">A A A &mdash; Always Add Acid (to water, never the reverse).</p>
+      <p>One more way to hold it: <em>&ldquo;Do what you oughta, add acid to water.&rdquo;</em> If you ever forget which goes into which, remember that water is the bigger, calmer partner &mdash; the acid goes into it, slowly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. pH SCALE ============ -->
+<section class="sec sec--gold" id="ph">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.3 &middot; How strong are acid or base solutions?</p>
+      <h2>The <em>pH scale</em> &mdash; a number for how sour or how soapy</h2>
+      <p class="lede">Indicators tell us whether something is an acid or a base. The pH scale tells us <strong>how much</strong>. It measures the hydrogen ion concentration in a solution, from 0 (very acidic) to 14 (very alkaline).</p>
+    </div>
+
+    <div class="card rise" style="padding-bottom:26px">
+      <div class="ph">
+        <div class="drum d3" data-3d>
+          <div class="drum__inner">
+            <div class="drum__cyl" id="drumCyl"></div>
+          </div>
+          <div class="drum__mark"></div>
+          <div class="drum__glass"></div>
+        </div>
+        <div class="ph__out">
+          <div class="ph__num" id="phNum">7</div>
+          <div class="ph__name" id="phName">Pure water</div>
+          <span class="ph__nat" id="phNat">Neutral</span>
+          <input class="ph__slide" id="phSlide" type="range" min="0" max="14" step="1" value="7" aria-label="Choose a pH value">
+          <div class="ph__hint"><span>0 &middot; very acidic</span><span>14 &middot; very alkaline</span></div>
+        </div>
+      </div>
+      <div class="strip" id="phStrip" role="group" aria-label="pH strip"></div>
+    </div>
+
+    <div class="grid grid--2" style="margin-top:34px">
+      <div class="card rise">
+        <h4>Where the name comes from</h4>
+        <p style="font-size:15.5px;margin-bottom:0">The <strong>p</strong> in pH stands for <em>potenz</em>, the German word for <strong>power</strong>. The scale was developed to measure hydrogen ion concentration in a solution. A <span class="term">universal indicator</span> &mdash; a mixture of several indicators &mdash; shows different colours at different hydrogen ion concentrations, and paper impregnated with it is what we use to measure pH.</p>
+      </div>
+      <div class="card rise">
+        <h4>Reading the scale</h4>
+        <ul class="pts pts--tight">
+          <li>pH of a <strong>neutral</strong> solution is exactly <strong>7</strong></li>
+          <li>Below 7 &rarr; acidic. The lower the number, the stronger the acid</li>
+          <li>From 7 to 14 &rarr; OH<sup>&minus;</sup> concentration increases, so the alkali gets stronger</li>
+          <li>Higher hydronium ion concentration means <strong>lower</strong> pH value</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">Remember it like this</div>
+      <p class="trick">Lower the number, louder the sour.</p>
+      <p>More H<sup>+</sup> ions crowded in the solution &rarr; smaller pH. And <strong>7 sits in the middle</strong> like a referee: everything on its left is an acid, everything on its right is a base.</p>
+      <p>For the German word: <em>p</em> for <em>potenz</em> = <em>p</em>ower. Both start with p.</p>
+    </div>
+
+    <div class="grid grid--2" style="margin-top:34px">
+      <div class="card card--tint rise">
+        <h4>Strong acid or weak acid?</h4>
+        <p style="font-size:15.5px">The strength depends on the <strong>number of H<sup>+</sup> ions produced</strong>. Take hydrochloric acid and acetic acid of the same concentration &mdash; say one molar &mdash; and they still produce different amounts of hydrogen ions.</p>
+        <ul class="pts pts--tight">
+          <li>Acids that give <strong>more</strong> H<sup>+</sup> ions &rarr; <strong>strong acids</strong></li>
+          <li>Acids that give <strong>fewer</strong> H<sup>+</sup> ions &rarr; <strong>weak acids</strong></li>
+          <li>Bases follow the same logic with OH<sup>&minus;</sup> ions</li>
+        </ul>
+      </div>
+      <div class="card rise">
+        <div class="card__ico">&#127756;</div>
+        <h4>Acids on other planets</h4>
+        <p style="font-size:15.5px;margin-bottom:0">The atmosphere of Venus is made up of thick white and yellowish clouds of sulphuric acid. Do you think life can exist on that planet?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. pH IN EVERYDAY LIFE ============ -->
+<section class="sec sec--salt" id="life">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.3.1 &middot; Importance of pH in everyday life</p>
+      <h2>Your body, your food, the rain and your <em>teeth</em> all run on pH</h2>
+    </div>
+
+    <div class="grid grid--2">
+      <div class="card rise">
+        <div class="card__ico">&#129728;</div>
+        <h4>Are plants and animals pH sensitive?</h4>
+        <p style="font-size:15.5px">Our body works within the narrow pH range of <strong>7.0 to 7.8</strong>. Living organisms can survive only in a narrow range of pH change.</p>
+        <p style="font-size:15.5px;margin-bottom:0">When the pH of rain water is <strong>less than 5.6</strong>, it is called <span class="term">acid rain</span>. When acid rain flows into rivers it lowers the pH of the river water, and survival of aquatic life in such rivers becomes difficult.</p>
+      </div>
+
+      <div class="card rise">
+        <div class="card__ico">&#127793;</div>
+        <h4>The pH of the soil in your backyard</h4>
+        <p style="font-size:15.5px;margin-bottom:0">Plants require a specific pH range for healthy growth. Farmers check the pH of soil from different places, and note which plants are already growing there, to decide what that soil can support.</p>
+      </div>
+
+      <div class="card rise">
+        <div class="card__ico">&#129440;</div>
+        <h4>pH in our digestive system</h4>
+        <p style="font-size:15.5px">Our stomach produces hydrochloric acid. It helps in digesting food without harming the stomach. During <strong>indigestion</strong> the stomach produces too much acid, which causes pain and irritation.</p>
+        <p style="font-size:15.5px;margin-bottom:0">To get rid of this pain, people use bases called <span class="term">antacids</span>. These neutralise the excess acid. Magnesium hydroxide &mdash; <strong>milk of magnesia</strong> &mdash; is a mild base often used for this purpose.</p>
+      </div>
+
+      <div class="card rise" style="border-color:rgba(255,77,94,.35)">
+        <div class="card__ico" style="--tint:var(--acid)">&#129463;</div>
+        <h4>pH change as the cause of tooth decay</h4>
+        <p style="font-size:15.5px">Tooth decay starts when the pH of the mouth is <strong>lower than 5.5</strong>. Tooth enamel is made of <span class="term">calcium hydroxyapatite</span>, a crystalline form of calcium phosphate, and is the hardest substance in the body. It does not dissolve in water, but it is corroded when the pH in the mouth falls below 5.5.</p>
+        <p style="font-size:15.5px;margin-bottom:0">Bacteria in the mouth produce acids by degrading the sugar and food particles left after eating. The best way to prevent this is to clean the mouth after eating. Toothpastes, which are generally basic, neutralise the excess acid and prevent tooth decay.</p>
+      </div>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">Two numbers that students always swap</div>
+      <p class="trick">Teeth 5.5 &middot; Rain 5.6</p>
+      <p><strong>Inside is smaller.</strong> What is inside your mouth takes the smaller number (5.5), what falls from outside takes the bigger one (5.6). Both are just below the middle of the acidic side &mdash; and both mean trouble.</p>
+    </div>
+
+    <div class="card rise" style="margin-top:32px">
+      <h3>Self defence by animals and plants through chemical warfare</h3>
+      <div class="grid grid--2" style="margin-top:14px">
+        <div>
+          <h4>&#128029; Bee sting</h4>
+          <p style="font-size:15.5px;margin-bottom:0">A bee sting leaves an <strong>acid</strong> in the skin, which causes pain and irritation. Rubbing a mild base like <strong>baking soda</strong> on the stung area gives relief.</p>
+        </div>
+        <div>
+          <h4>&#127807; Nettle sting</h4>
+          <p style="font-size:15.5px;margin-bottom:0">Nettle is a herbaceous plant that grows in the wild. Its leaves have stinging hair which inject <strong>methanoic acid</strong>, causing burning pain. The traditional remedy is rubbing the area with the leaf of the <strong>dock plant</strong>, which often grows beside the nettle.</p>
+        </div>
+      </div>
+      <div class="mem">
+        <div class="mem__label">Remember it like this</div>
+        <p class="trick">Sting is acid &rarr; cure is base.</p>
+        <p>Nature even keeps the cure next door: the dock plant grows right beside the nettle. Acid problem, basic solution &mdash; the same idea as the antacid in your stomach.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11. NATURAL ACIDS ============ -->
+<section class="sec sec--gold" id="natural">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">Table 2.3 &middot; Some naturally occurring acids</p>
+      <h2>Acids you have already <em>eaten</em> today</h2>
+    </div>
+    <div class="grid grid--4">
+      <div class="card rise"><div class="card__ico">&#129379;</div><h4>Vinegar</h4><p class="dim" style="margin:0;font-size:15px">Acetic acid</p></div>
+      <div class="card rise"><div class="card__ico">&#127818;</div><h4>Orange</h4><p class="dim" style="margin:0;font-size:15px">Citric acid</p></div>
+      <div class="card rise"><div class="card__ico">&#127819;</div><h4>Lemon</h4><p class="dim" style="margin:0;font-size:15px">Citric acid</p></div>
+      <div class="card rise"><div class="card__ico">&#127813;</div><h4>Tamarind</h4><p class="dim" style="margin:0;font-size:15px">Tartaric acid</p></div>
+      <div class="card rise"><div class="card__ico">&#127813;</div><h4>Tomato</h4><p class="dim" style="margin:0;font-size:15px">Oxalic acid</p></div>
+      <div class="card rise"><div class="card__ico">&#129371;</div><h4>Sour milk / curd</h4><p class="dim" style="margin:0;font-size:15px">Lactic acid</p></div>
+      <div class="card rise"><div class="card__ico">&#128028;</div><h4>Ant sting</h4><p class="dim" style="margin:0;font-size:15px">Methanoic acid</p></div>
+      <div class="card rise"><div class="card__ico">&#127807;</div><h4>Nettle sting</h4><p class="dim" style="margin:0;font-size:15px">Methanoic acid</p></div>
+    </div>
+    <div class="mem rise">
+      <div class="mem__label">Remember it like this</div>
+      <p class="trick">Both stings share one acid.</p>
+      <p>Ant and nettle &mdash; two very different attackers, the same <strong>methanoic acid</strong>. And the two citrus fruits share <strong>citric acid</strong>. That leaves only four to memorise: vinegar&ndash;acetic, tamarind&ndash;tartaric, tomato&ndash;oxalic, curd&ndash;lactic.</p>
+      <p>Wordplay that sticks: <em>tomato</em> and <em>oxalic</em> both hide an <strong>o</strong>; <em>tamarind</em> and <em>tartaric</em> both start with <strong>ta</strong>; <em>curd</em> is made from milk, and milk gives <strong>lactic</strong> (lactose).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12. MORE ABOUT SALTS ============ -->
+<section class="sec sec--salt" id="salts">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.4 &middot; More about salts</p>
+      <h2>Every salt has <em>two parents</em> &mdash; an acid and a base</h2>
+      <p class="lede">A salt is what is left after neutralisation. So you can always read a salt backwards to find the acid and the base it came from.</p>
+    </div>
+
+    <div class="grid grid--2">
+      <div class="card rise">
+        <div class="card__ico">&#128106;</div>
+        <h4>2.4.1 &nbsp;Family of salts</h4>
+        <p style="font-size:15.5px">Salts having the same positive or the same negative radical are said to belong to one family.</p>
+        <ul class="pts pts--tight">
+          <li><strong>NaCl</strong> and <strong>Na<sub>2</sub>SO<sub>4</sub></strong> &rarr; family of <strong>sodium</strong> salts (same positive radical)</li>
+          <li><strong>NaCl</strong> and <strong>KCl</strong> &rarr; family of <strong>chloride</strong> salts (same negative radical)</li>
+        </ul>
+        <p style="font-size:15px;color:var(--dim);margin:12px 0 0">Other salts you should be able to write: potassium sulphate K<sub>2</sub>SO<sub>4</sub>, calcium sulphate CaSO<sub>4</sub>, magnesium sulphate MgSO<sub>4</sub>, copper sulphate CuSO<sub>4</sub>, sodium nitrate NaNO<sub>3</sub>, sodium carbonate Na<sub>2</sub>CO<sub>3</sub>, ammonium chloride NH<sub>4</sub>Cl.</p>
+        <div class="mem">
+          <div class="mem__label">Remember it like this</div>
+          <p class="trick">Same surname, same family.</p>
+          <p>Share the <strong>sodium</strong> &rarr; sodium family. Share the <strong>chloride</strong> &rarr; chloride family. One salt can belong to two families at once, just like you belong to your mother's and your father's.</p>
+        </div>
+      </div>
+
+      <div class="card card--tint rise">
+        <div class="card__ico">&#128208;</div>
+        <h4>2.4.2 &nbsp;pH of salts</h4>
+        <ul class="pts pts--tight">
+          <li>Strong acid + strong base &rarr; <strong>neutral</strong> salt, pH&nbsp;=&nbsp;<strong>7</strong></li>
+          <li>Strong acid + weak base &rarr; <strong>acidic</strong> salt, pH&nbsp;<strong>&lt;&nbsp;7</strong></li>
+          <li>Strong base + weak acid &rarr; <strong>basic</strong> salt, pH&nbsp;<strong>&gt;&nbsp;7</strong></li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">Remember it like this</div>
+          <p class="trick">The stronger parent decides the child.</p>
+          <p>If the acid parent is stronger, the salt turns out acidic. If the base parent is stronger, the salt turns out basic. If both are equally strong, nobody wins &mdash; the salt is neutral.</p>
+          <p>Example: <code>NaCl</code> comes from strong HCl and strong NaOH, so it is neutral. <code>Na&#8322;CO&#8323;</code> comes from strong NaOH and weak carbonic acid, so it is basic.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13. COMMON SALT & CHLOR-ALKALI ============ -->
+<section class="sec sec--base" id="chloralkali">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.4.3 &middot; Chemicals from common salt</p>
+      <h2>One salt, and an entire <em>industry</em> comes out of it</h2>
+      <p class="lede">Sodium chloride is formed by the combination of hydrochloric acid and sodium hydroxide solution &mdash; a strong acid and a strong base &mdash; so it is a neutral salt. It is also the raw material for sodium hydroxide, baking soda, washing soda and bleaching powder.</p>
+    </div>
+
+    <div class="grid grid--2" style="margin-bottom:34px">
+      <div class="card rise">
+        <div class="card__ico">&#127958;&#65039;</div>
+        <h4>Where common salt comes from</h4>
+        <p style="font-size:15.5px">Seawater contains many salts dissolved in it, and sodium chloride is separated from these. Deposits of solid salt are also found in several parts of the world. These large crystals are often brown due to impurities &mdash; this is called <span class="term">rock salt</span>. Beds of rock salt were formed when seas of bygone ages dried up. Rock salt is mined like coal.</p>
+        <p style="font-size:15.5px;margin-bottom:0">You must have heard of Mahatma Gandhi's <em>Dandi March</em> &mdash; sodium chloride was such an important symbol in our struggle for freedom.</p>
+      </div>
+      <div class="card rise">
+        <div class="card__ico">&#9889;</div>
+        <h4>The chlor-alkali process</h4>
+        <p style="font-size:15.5px">When electricity is passed through an aqueous solution of sodium chloride, called <span class="term">brine</span>, it decomposes to form sodium hydroxide.</p>
+        <p style="font-size:15.5px;margin-bottom:0">The name comes straight from the products: <strong>chlor</strong> for chlorine, <strong>alkali</strong> for sodium hydroxide.</p>
+      </div>
+    </div>
+
+    <div class="cell d3 rise" data-3d aria-hidden="true">
+      <div class="cell__box">
+        <div class="cf cf-back"></div>
+        <div class="cf cf-left"></div>
+        <div class="cf cf-right"></div>
+        <div class="cf cf-bottom"></div>
+        <div class="brine"></div>
+        <div class="el el--a"><b>Anode &rarr; Cl<sub>2</sub></b>
+          <span class="bub bub--cl" style="--d:0s"></span><span class="bub bub--cl" style="--d:.7s"></span><span class="bub bub--cl" style="--d:1.4s"></span>
+        </div>
+        <div class="el el--c"><b>Cathode &rarr; H<sub>2</sub></b>
+          <span class="bub bub--h" style="--d:.3s"></span><span class="bub bub--h" style="--d:1s"></span><span class="bub bub--h" style="--d:1.7s"></span>
+        </div>
+        <div class="cf cf-front"></div>
+      </div>
+    </div>
+    <p class="dim" style="text-align:center;font-size:14px;margin-top:-18px">The electrolysis cell turns as you scroll. Green bubbles are chlorine, blue are hydrogen.</p>
+
+    <div class="rxn rise" data-3d>
+      <div class="rxn__tag">Electrolysis of brine</div>
+      <div class="rxn__eq">2NaCl <span class="st">(aq)</span> + 2H<sub class="sub">2</sub>O <span class="st">(l)</span> <span class="ar">&rarr;</span> 2NaOH <span class="st">(aq)</span> + Cl<sub class="sub">2</sub> <span class="st">(g)</span> + H<sub class="sub">2</sub> <span class="st">(g)</span></div>
+      <p class="rxn__note">Chlorine gas is given off at the <strong>anode</strong>, hydrogen gas at the <strong>cathode</strong>, and sodium hydroxide solution is formed near the cathode. All three products are useful.</p>
+    </div>
+
+    <div class="mem rise">
+      <div class="mem__label">Remember it like this</div>
+      <p class="trick">Anions go to the Anode.</p>
+      <p>Cl<sup>&minus;</sup> is an <strong>an</strong>ion, so chlorine appears at the <strong>an</strong>ode. Whatever is left over &mdash; hydrogen &mdash; must come out at the cathode, and the sodium hydroxide stays behind in the solution near it.</p>
+      <p>And the name of the process lists two of the three products for you: <strong>chlor</strong>ine + <strong>alkali</strong>. Hydrogen is the free bonus.</p>
+    </div>
+
+    <div class="cell__legend rise" style="margin-top:26px">
+      <div class="leg" style="border-color:rgba(120,240,150,.35)"><b style="color:#8CF096">Cl<sub>2</sub> &mdash; chlorine</b><span>Water treatment, swimming pools, PVC, disinfectants, CFCs, pesticides</span></div>
+      <div class="leg" style="border-color:rgba(140,190,255,.35)"><b style="color:#8CBEFF">H<sub>2</sub> &mdash; hydrogen</b><span>Fuels, margarine, and ammonia for fertilisers</span></div>
+      <div class="leg" style="border-color:rgba(242,180,48,.35)"><b style="color:#F2B430">NaOH &mdash; sodium hydroxide</b><span>De-greasing metals, soaps and detergents, paper making, artificial fibres</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14. THREE PRODUCTS ============ -->
+<section class="sec sec--gold" id="products">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">Three famous chemicals from common salt</p>
+      <h2>Bleaching powder, baking soda, <em>washing soda</em></h2>
+    </div>
+
+    <!-- bleaching powder -->
+    <div class="card rise" style="margin-bottom:24px">
+      <h3>1 &nbsp;Bleaching powder &mdash; CaOCl<sub>2</sub></h3>
+      <p style="font-size:16px">The chlorine produced during the electrolysis of brine is used to manufacture bleaching powder. It is produced by the action of chlorine on <strong>dry slaked lime</strong>, Ca(OH)<sub>2</sub>. It is represented as CaOCl<sub>2</sub>, though the actual composition is quite complex.</p>
+      <div class="rxn" data-3d>
+        <div class="rxn__eq">2Ca(OH)<sub class="sub">2</sub> + 2Cl<sub class="sub">2</sub> <span class="ar">&rarr;</span> Ca(ClO)<sub class="sub">2</sub> + CaCl<sub class="sub">2</sub> + 2H<sub class="sub">2</sub>O</div>
+      </div>
+      <h4 style="margin-top:18px">Bleaching powder is used</h4>
+      <ul class="pts pts--tight">
+        <li>For bleaching cotton and linen in the textile industry, bleaching wood pulp in paper factories, and bleaching washed clothes in laundry</li>
+        <li>As an <strong>oxidising agent</strong> in many chemical industries</li>
+        <li>To make drinking water free from germs</li>
+      </ul>
+      <div class="mem">
+        <div class="mem__label">Remember it like this</div>
+        <p class="trick">Slaked lime takes a chlorine shower.</p>
+        <p>Formula reads left to right exactly as its parents: <strong>Ca</strong> from lime, <strong>O</strong> from the hydroxide, <strong>Cl<sub>2</sub></strong> from chlorine &rarr; <code>CaOCl&#8322;</code>. For the uses: <em>Bleach clothes, bleach paper, kill germs.</em></p>
+      </div>
+    </div>
+
+    <!-- baking soda -->
+    <div class="card rise" style="margin-bottom:24px">
+      <h3>2 &nbsp;Baking soda &mdash; NaHCO<sub>3</sub></h3>
+      <p style="font-size:16px">Commonly used in the kitchen for making tasty crispy pakoras, and sometimes added for faster cooking. Its chemical name is <span class="term">sodium hydrogencarbonate</span>, and it is produced using sodium chloride as one of the raw materials.</p>
+      <div class="rxn" data-3d>
+        <div class="rxn__tag">How it is made</div>
+        <div class="rxn__eq">NaCl + H<sub class="sub">2</sub>O + CO<sub class="sub">2</sub> + NH<sub class="sub">3</sub> <span class="ar">&rarr;</span> NH<sub class="sub">4</sub>Cl + NaHCO<sub class="sub">3</sub></div>
+        <p class="rxn__note">ammonium chloride &nbsp;+&nbsp; sodium hydrogencarbonate</p>
+      </div>
+      <p style="font-size:16px">It is a mild, non-corrosive <strong>basic</strong> salt &mdash; which is why it can neutralise an acid. On heating during cooking:</p>
+      <div class="rxn" data-3d>
+        <div class="rxn__eq">2NaHCO<sub class="sub">3</sub> <span class="ar">&mdash;Heat&rarr;</span> Na<sub class="sub">2</sub>CO<sub class="sub">3</sub> + H<sub class="sub">2</sub>O + CO<sub class="sub">2</sub></div>
+        <p class="rxn__note">sodium hydrogencarbonate &rarr; sodium carbonate</p>
+      </div>
+      <h4 style="margin-top:18px">Uses of baking soda</h4>
+      <ul class="pts pts--tight">
+        <li><strong>Baking powder</strong> is a mixture of baking soda and a mild edible acid such as tartaric acid. When heated or mixed with water: <span style="font-family:var(--mono);font-size:14px">NaHCO<sub>3</sub> + H<sup>+</sup> &rarr; CO<sub>2</sub> + H<sub>2</sub>O + sodium salt of acid</span>. The carbon dioxide produced makes the bread or cake rise, turning it soft and spongy</li>
+        <li>An ingredient in <strong>antacids</strong>. Being alkaline, it neutralises excess acid in the stomach and provides relief</li>
+        <li>Used in <strong>soda-acid fire extinguishers</strong></li>
+      </ul>
+      <div class="mem">
+        <div class="mem__label">Remember it like this</div>
+        <p class="trick">The cake rises because a gas is trying to escape.</p>
+        <p>Every use of baking soda is really one idea: <strong>it releases CO<sub>2</sub> and it kills acid.</strong> Gas &rarr; spongy cake and fire extinguisher. Base &rarr; antacid.</p>
+      </div>
+    </div>
+
+    <!-- washing soda -->
+    <div class="card rise">
+      <h3>3 &nbsp;Washing soda &mdash; Na<sub>2</sub>CO<sub>3</sub>&middot;10H<sub>2</sub>O</h3>
+      <p style="font-size:16px">Another chemical obtained from sodium chloride. Sodium carbonate is made by heating baking soda; recrystallisation of sodium carbonate gives washing soda. It is also a <strong>basic salt</strong>.</p>
+      <div class="rxn" data-3d>
+        <div class="rxn__eq">Na<sub class="sub">2</sub>CO<sub class="sub">3</sub> + 10H<sub class="sub">2</sub>O <span class="ar">&rarr;</span> Na<sub class="sub">2</sub>CO<sub class="sub">3</sub>&middot;10H<sub class="sub">2</sub>O</div>
+        <p class="rxn__note">sodium carbonate &rarr; washing soda</p>
+      </div>
+      <h4 style="margin-top:18px">Uses of washing soda</h4>
+      <ul class="pts pts--tight">
+        <li>In <strong>glass, soap and paper</strong> industries</li>
+        <li>In the manufacture of sodium compounds such as <strong>borax</strong></li>
+        <li>As a <strong>cleaning agent</strong> for domestic purposes</li>
+        <li>For removing <strong>permanent hardness of water</strong></li>
+      </ul>
+      <div class="mem">
+        <div class="mem__label">Remember it like this</div>
+        <p class="trick">Baking soda has an H. Washing soda has two Na and ten waters.</p>
+        <p><code>NaHCO&#8323;</code> vs <code>Na&#8322;CO&#8323;&middot;10H&#8322;O</code>. Baking happens in <strong>H</strong>eat, so baking soda keeps the <strong>H</strong>. Washing needs <strong>water</strong>, so washing soda carries ten of them.</p>
+        <p>For the four uses: <strong>G S P</strong> &mdash; <strong>G</strong>lass, <strong>S</strong>oap, <strong>P</strong>aper &mdash; plus borax, cleaning, and killing hardness of water.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15. WATER OF CRYSTALLISATION ============ -->
+<section class="sec sec--base" id="water">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">2.4.4 &middot; Are the crystals of salts really dry?</p>
+      <h2>Some salts carry water <em>inside</em> the crystal</h2>
+      <p class="lede">Heat a few blue crystals of copper sulphate in a dry boiling tube. Water droplets appear on the walls of the tube and the salt turns white. Add two or three drops of water back and the blue colour returns.</p>
+    </div>
+
+    <div class="grid grid--2" style="align-items:center">
+      <div class="rise">
+        <div class="crystal d3" data-3d>
+          <div class="cube" id="cuCube">
+            <div class="fc fc-1"></div><div class="fc fc-2"></div><div class="fc fc-3"></div>
+            <div class="fc fc-4"></div><div class="fc fc-5"></div><div class="fc fc-6"></div>
+          </div>
+          <span class="steam" id="st1" style="--d:0s"></span>
+          <span class="steam" id="st2" style="--d:.8s"></span>
+          <span class="steam" id="st3" style="--d:1.5s"></span>
+        </div>
+        <div class="switch">
+          <button class="btn" id="heatBtn">&#128293; Heat the crystals</button>
+        </div>
+        <p class="dim" style="text-align:center;font-size:14px" id="cuCap">Blue crystals &mdash; CuSO<sub>4</sub>&middot;5H<sub>2</sub>O</p>
+      </div>
+
+      <div class="rise">
+        <p style="font-size:16px">Copper sulphate crystals which seem to be dry contain <span class="term">water of crystallisation</span>. When we heat the crystals, this water is removed and the salt turns white. If you moisten the crystals again with water, the blue colour reappears.</p>
+        <p style="font-size:16px">Water of crystallisation is the <strong>fixed number of water molecules present in one formula unit of a salt</strong>. Five water molecules are present in one formula unit of copper sulphate.</p>
+        <div class="rxn" data-3d>
+          <div class="rxn__eq">CuSO<sub class="sub">4</sub>&middot;5H<sub class="sub">2</sub>O <span class="st">hydrated copper sulphate &mdash; blue</span></div>
+          <div class="rxn__eq">CaSO<sub class="sub">4</sub>&middot;2H<sub class="sub">2</sub>O <span class="st">gypsum</span></div>
+        </div>
+        <p style="font-size:16px;margin-bottom:0">This is also the answer to whether Na<sub>2</sub>CO<sub>3</sub>&middot;10H<sub>2</sub>O is wet &mdash; it is not. Those ten water molecules are locked inside the crystal, not sitting on it.</p>
+      </div>
+    </div>
+
+    <div class="card rise" style="margin-top:34px">
+      <h3>Plaster of Paris &mdash; CaSO<sub>4</sub>&middot;&frac12;H<sub>2</sub>O</h3>
+      <p style="font-size:16px">On heating gypsum at <strong>373 K</strong>, it loses water molecules and becomes calcium sulphate hemihydrate. This is Plaster of Paris, the substance doctors use as a plaster for supporting fractured bones in the right position. It is a white powder, and on mixing with water it changes back to gypsum, giving a hard solid mass.</p>
+      <div class="rxn" data-3d>
+        <div class="rxn__eq">CaSO<sub class="sub">4</sub>&middot;&frac12;H<sub class="sub">2</sub>O + 1&frac12;H<sub class="sub">2</sub>O <span class="ar">&rarr;</span> CaSO<sub class="sub">4</sub>&middot;2H<sub class="sub">2</sub>O</div>
+        <p class="rxn__note">Plaster of Paris &nbsp;+&nbsp; water &nbsp;&rarr;&nbsp; gypsum</p>
+      </div>
+      <p style="font-size:16px">Why only <strong>half</strong> a water molecule? Because two formula units of CaSO<sub>4</sub> share one molecule of water between them. Plaster of Paris is also used for making toys, materials for decoration, and for making surfaces smooth.</p>
+      <div class="mem">
+        <div class="mem__label">Remember it like this</div>
+        <p class="trick">Five, two, half &mdash; the water ladder.</p>
+        <p><code>CuSO&#8324;&middot;5H&#8322;O</code> blue copper sulphate &rarr; <code>CaSO&#8324;&middot;2H&#8322;O</code> gypsum &rarr; <code>CaSO&#8324;&middot;&frac12;H&#8322;O</code> Plaster of Paris. The numbers only ever go <strong>5, 2, &frac12;</strong>.</p>
+        <p>For the half: picture <strong>two</strong> CaSO<sub>4</sub> units sharing <strong>one</strong> water bottle &mdash; half each. And 373 K is simply 100&nbsp;&deg;C, the temperature at which water leaves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16. QUESTIONS ============ -->
+<section class="sec sec--violet" id="questions">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">Every question in the chapter</p>
+      <h2>Answered in <em>small steps</em>, with a way to remember each one</h2>
+      <p class="lede">Read the question, cover the answer with your hand, and try it yourself first. Then check the gold box &mdash; that is the part you carry into the exam hall.</p>
+    </div>
+
+    <p class="rule">Set 1 &middot; after indicators</p>
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">1</div><p class="q__ask">Three test tubes contain distilled water, an acidic solution and a basic solution. You are given <em>only red litmus paper</em>. How will you identify the contents of each?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer in three moves</p>
+        <ul class="pts pts--tight">
+          <li>Dip red litmus paper into all three. Only one turns it <strong>blue</strong> &mdash; that tube is the <strong>base</strong></li>
+          <li>Now you own a blue litmus paper. Dip that blue paper into the remaining two tubes</li>
+          <li>The one that turns it back to <strong>red</strong> is the <strong>acid</strong>. The one that does nothing is <strong>distilled water</strong></li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">Make your own blue paper first.</p>
+          <p>Red litmus can only catch a base. So catch the base, and let the base <em>manufacture</em> the blue paper you were not given. Then blue catches the acid, and water is whatever is left.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="rule" style="margin-top:34px">Set 2 &middot; after reactions of acids and bases</p>
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">1</div><p class="q__ask">Why should curd and sour substances not be kept in brass and copper vessels?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>Curd and sour substances contain <strong>acids</strong></li>
+          <li>These acids react with the metal of the brass or copper vessel</li>
+          <li>The reaction forms harmful metal salts (and hydrogen), which spoil the food and can cause food poisoning</li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">Acid + Metal = MASH. And you should not eat the S.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">2</div><p class="q__ask">Which gas is usually liberated when an acid reacts with a metal? Illustrate with an example. How will you test for the presence of this gas?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer in three parts</p>
+        <ul class="pts pts--tight">
+          <li><strong>Gas:</strong> hydrogen, H<sub>2</sub></li>
+          <li><strong>Example:</strong> <span style="font-family:var(--mono);font-size:14.5px">Zn + H<sub>2</sub>SO<sub>4</sub> &rarr; ZnSO<sub>4</sub> + H<sub>2</sub></span></li>
+          <li><strong>Test:</strong> pass the gas through soap solution and bring a burning candle near a gas-filled bubble &mdash; it burns with a <strong>pop sound</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">3</div><p class="q__ask">Metal compound A reacts with dilute hydrochloric acid to produce effervescence. The gas evolved extinguishes a burning candle. Write a balanced equation if one of the compounds formed is calcium chloride.</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer by clues</p>
+        <ul class="pts pts--tight">
+          <li>Gas <strong>extinguishes</strong> a burning candle &rarr; the gas is <strong>CO<sub>2</sub></strong> (hydrogen would have popped, not put it out)</li>
+          <li>CO<sub>2</sub> with an acid comes from a <strong>carbonate</strong></li>
+          <li>One product is calcium chloride &rarr; the metal is <strong>calcium</strong></li>
+          <li>So compound A is <strong>calcium carbonate, CaCO<sub>3</sub></strong></li>
+        </ul>
+        <div class="rxn" style="margin-top:14px" data-3d>
+          <div class="rxn__eq">CaCO<sub class="sub">3</sub> <span class="st">(s)</span> + 2HCl <span class="st">(aq)</span> <span class="ar">&rarr;</span> CaCl<sub class="sub">2</sub> <span class="st">(aq)</span> + H<sub class="sub">2</sub>O <span class="st">(l)</span> + CO<sub class="sub">2</sub> <span class="st">(g)</span></div>
+        </div>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">Pop = hydrogen. Put out = carbon dioxide.</p>
+          <p>That one line decides half the gas questions in this chapter. A gas that <strong>burns</strong> is H<sub>2</sub>; a gas that <strong>stops</strong> burning is CO<sub>2</sub>.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="rule" style="margin-top:34px">Set 3 &middot; after ions, water and dilution</p>
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">1</div><p class="q__ask">Why do HCl and HNO<sub>3</sub> show acidic character in aqueous solution, while alcohol and glucose solutions do not?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>HCl and HNO<sub>3</sub> <strong>dissociate in water</strong> to give H<sup>+</sup>(aq) ions</li>
+          <li>H<sup>+</sup>(aq) ions are what make a solution acidic</li>
+          <li>Alcohol and glucose also contain hydrogen, but they do <strong>not</strong> release it as H<sup>+</sup> ions in solution</li>
+          <li>No H<sup>+</sup> ions &rarr; no acidic character, and no conduction of electricity either</li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">Having hydrogen is not enough &mdash; it must be <em>set free</em>.</p>
+          <p>Glucose keeps its hydrogen locked up. HCl lets it go. Free H<sup>+</sup> is the whole definition of an acid.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">2</div><p class="q__ask">Why does an aqueous solution of an acid conduct electricity?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>In water, an acid produces <strong>free ions</strong> &mdash; H<sub>3</sub>O<sup>+</sup> (or H<sup>+</sup>(aq)) and the anion</li>
+          <li>Moving ions carry the electric current through the solution, so the bulb glows</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">3</div><p class="q__ask">Why does dry HCl gas not change the colour of dry litmus paper?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>Dry HCl gas has <strong>no water</strong> available</li>
+          <li>Without water, HCl cannot separate into H<sup>+</sup> ions</li>
+          <li>No H<sup>+</sup> ions means it does not behave as an acid, so dry litmus stays unchanged. Moist litmus paper does turn red</li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">No water, no acid.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">4</div><p class="q__ask">While diluting an acid, why must the acid be added to water and not water to the acid?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>The process is <strong>highly exothermic</strong> &mdash; a lot of heat is released</li>
+          <li>If water is added to concentrated acid, the heat generated may make the mixture <strong>splash out</strong> and cause burns</li>
+          <li>The glass container may also <strong>break</strong> due to excessive local heating</li>
+          <li>Adding acid slowly to water, with constant stirring, spreads that heat safely</li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">A A A &mdash; Always Add Acid.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">5</div><p class="q__ask">How is the concentration of hydronium ions (H<sub>3</sub>O<sup>+</sup>) affected when a solution of an acid is diluted?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>It <strong>decreases</strong> &mdash; the same number of ions is now spread through more volume</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">6</div><p class="q__ask">How is the concentration of hydroxide ions (OH<sup>&minus;</sup>) affected when excess base is dissolved in a solution of sodium hydroxide?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>It <strong>increases</strong> &mdash; more base means more OH<sup>&minus;</sup> ions in the same solution</li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">How to remember both questions above</div>
+          <p class="trick">Add water &rarr; ions go down. Add more base &rarr; ions go up.</p>
+          <p>Dilution spreads the ions thin. Adding more of the substance crowds them in. Nothing more to it.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="rule" style="margin-top:34px">Set 4 &middot; after the pH scale</p>
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">1</div><p class="q__ask">Solution A has pH 6 and solution B has pH 8. Which has more hydrogen ion concentration? Which is acidic and which is basic?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li><strong>A</strong> has more hydrogen ion concentration, because lower pH means more H<sup>+</sup></li>
+          <li><strong>A is acidic</strong> (pH 6, below 7)</li>
+          <li><strong>B is basic</strong> (pH 8, above 7)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">2</div><p class="q__ask">What effect does the concentration of H<sup>+</sup>(aq) ions have on the nature of the solution?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>More H<sup>+</sup>(aq) ions &rarr; the solution is <strong>more acidic</strong> and its pH is lower</li>
+          <li>Fewer H<sup>+</sup>(aq) ions &rarr; the solution is <strong>more basic</strong> and its pH is higher</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">3</div><p class="q__ask">Do basic solutions also have H<sup>+</sup>(aq) ions? If yes, then why are these basic?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li><strong>Yes</strong> &mdash; basic solutions do contain H<sup>+</sup>(aq) ions</li>
+          <li>But the concentration of OH<sup>&minus;</sup> ions is <strong>greater than</strong> the concentration of H<sup>+</sup> ions</li>
+          <li>Whichever ion is in excess decides the nature, so the solution is basic</li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">Both ions are always present. The <em>majority</em> wins the election.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">4</div><p class="q__ask">Under what soil condition would a farmer treat his fields with quick lime (calcium oxide), slaked lime (calcium hydroxide) or chalk (calcium carbonate)?</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>When the soil is <strong>too acidic</strong> &mdash; that is, its pH is too low for the crop</li>
+          <li>All three of these are <strong>basic</strong> compounds, so they neutralise the excess acid and bring the soil pH back into a healthy range</li>
+        </ul>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">Sick soil is sour. The cure is always a base.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="rule" style="margin-top:34px">Set 5 &middot; after salts</p>
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">1</div><p class="q__ask">What is the common name of the compound Ca(ClO)<sub>2</sub>?</p></div>
+      <div class="q__ans"><p class="ansline">Answer</p><ul class="pts pts--tight"><li><strong>Bleaching powder</strong></li></ul></div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">2</div><p class="q__ask">Name the substance which on treatment with chlorine yields bleaching powder.</p></div>
+      <div class="q__ans"><p class="ansline">Answer</p><ul class="pts pts--tight"><li><strong>Dry slaked lime</strong> &mdash; calcium hydroxide, Ca(OH)<sub>2</sub></li></ul></div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">3</div><p class="q__ask">Name the sodium compound which is used for softening hard water.</p></div>
+      <div class="q__ans"><p class="ansline">Answer</p><ul class="pts pts--tight"><li><strong>Washing soda</strong> &mdash; sodium carbonate, Na<sub>2</sub>CO<sub>3</sub>&middot;10H<sub>2</sub>O</li></ul></div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">4</div><p class="q__ask">What will happen if a solution of sodium hydrogencarbonate is heated? Give the equation of the reaction involved.</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <ul class="pts pts--tight">
+          <li>It decomposes to give <strong>sodium carbonate, water and carbon dioxide</strong></li>
+        </ul>
+        <div class="rxn" style="margin-top:14px" data-3d>
+          <div class="rxn__eq">2NaHCO<sub class="sub">3</sub> <span class="ar">&mdash;Heat&rarr;</span> Na<sub class="sub">2</sub>CO<sub class="sub">3</sub> + H<sub class="sub">2</sub>O + CO<sub class="sub">2</sub></div>
+        </div>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">Heat squeezes water and gas out of baking soda.</p>
+          <p>What is left behind is washing soda's parent, <code>Na&#8322;CO&#8323;</code>. This is exactly why cakes rise.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q rise">
+      <div class="q__top"><div class="q__n">5</div><p class="q__ask">Write an equation to show the reaction between Plaster of Paris and water.</p></div>
+      <div class="q__ans">
+        <p class="ansline">Answer</p>
+        <div class="rxn" style="margin-top:0" data-3d>
+          <div class="rxn__eq">CaSO<sub class="sub">4</sub>&middot;&frac12;H<sub class="sub">2</sub>O + 1&frac12;H<sub class="sub">2</sub>O <span class="ar">&rarr;</span> CaSO<sub class="sub">4</sub>&middot;2H<sub class="sub">2</sub>O</div>
+          <p class="rxn__note">Plaster of Paris takes water back and becomes gypsum, setting into a hard solid mass.</p>
+        </div>
+        <div class="mem">
+          <div class="mem__label">How to remember this answer</div>
+          <p class="trick">&frac12; + 1&frac12; = 2. The water always adds up to gypsum.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 17. WHAT YOU HAVE LEARNT ============ -->
+<section class="sec sec--gold" id="recap">
+  <div class="wrap">
+    <div class="sec__head rise">
+      <p class="eyebrow">Revision</p>
+      <h2>What you have <em>learnt</em></h2>
+    </div>
+    <div class="learnt rise">
+      <ul>
+        <li>Acid-base indicators are dyes or mixtures of dyes used to indicate the presence of acids and bases.</li>
+        <li>Acidic nature is due to the formation of H<sup>+</sup>(aq) ions in solution; basic nature is due to the formation of OH<sup>&minus;</sup>(aq) ions.</li>
+        <li>When an acid reacts with a metal, hydrogen gas is evolved and a corresponding salt is formed.</li>
+        <li>When a base reacts with a metal, hydrogen gas is evolved along with a salt whose negative ion is made of the metal and oxygen.</li>
+        <li>When an acid reacts with a metal carbonate or hydrogencarbonate, it gives the corresponding salt, carbon dioxide gas and water.</li>
+        <li>Acidic and basic solutions in water conduct electricity, because they produce hydrogen and hydroxide ions respectively.</li>
+        <li>Neutralisation of an acid by a base gives a salt and water: H<sup>+</sup>(aq) + OH<sup>&minus;</sup>(aq) &rarr; H<sub>2</sub>O(l).</li>
+        <li>Metallic oxides are basic in nature; non-metallic oxides are acidic in nature.</li>
+        <li>The pH scale runs from 0 to 14 and measures hydrogen ion concentration. Below 7 is acidic, 7 is neutral, above 7 is basic.</li>
+        <li>pH decides everyday things: acid rain below 5.6, tooth decay below 5.5, our body's range of 7.0 to 7.8, and the antacid you take for indigestion.</li>
+        <li>Salts of strong acids and strong bases are neutral; a strong acid with a weak base gives an acidic salt; a strong base with a weak acid gives a basic salt.</li>
+        <li>Common salt is the raw material for sodium hydroxide, bleaching powder, baking soda and washing soda.</li>
+        <li>Chlor-alkali: electricity through brine gives NaOH, chlorine at the anode and hydrogen at the cathode.</li>
+        <li>Salts may contain water of crystallisation &mdash; CuSO<sub>4</sub>&middot;5H<sub>2</sub>O, gypsum CaSO<sub>4</sub>&middot;2H<sub>2</sub>O, and Plaster of Paris CaSO<sub>4</sub>&middot;&frac12;H<sub>2</sub>O.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <div class="foot__name">Shlok Patel</div>
+        <small>Acids, Bases and Salts &middot; Class 10 Science &middot; Chapter 2</small>
+      </div>
+      <div>
+        <small>Built for reading on a phone or a laptop</small>
+        <small>Scroll back up to test the indicators again</small>
+      </div>
+    </div>
+  </div>
+</footer>
+</main>
+
+<!-- ============ CHAPTER MAP ============ -->
+<button class="mapbtn" id="mapBtn" aria-label="Open chapter map" aria-expanded="false"><span></span></button>
+<nav class="map" id="mapPanel" aria-label="Chapter sections">
+  <h5>Jump to</h5>
+  <a href="#start"><i>01</i>Where it starts</a>
+  <a href="#indicators"><i>02</i>Indicators</a>
+  <a href="#metals"><i>03</i>Acids with metals</a>
+  <a href="#carbonates"><i>04</i>Carbonates</a>
+  <a href="#neutral"><i>05</i>Neutralisation</a>
+  <a href="#oxides"><i>06</i>Oxides</a>
+  <a href="#common"><i>07</i>The common ion</a>
+  <a href="#dilution"><i>08</i>Dilution</a>
+  <a href="#ph"><i>09</i>The pH scale</a>
+  <a href="#life"><i>10</i>pH in daily life</a>
+  <a href="#natural"><i>11</i>Natural acids</a>
+  <a href="#salts"><i>12</i>More about salts</a>
+  <a href="#chloralkali"><i>13</i>Chlor-alkali</a>
+  <a href="#products"><i>14</i>Soda &amp; bleach</a>
+  <a href="#water"><i>15</i>Water of crystallisation</a>
+  <a href="#questions"><i>16</i>All questions</a>
+  <a href="#recap"><i>17</i>Revision</a>
+</nav>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- reveal on entry ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  },{rootMargin:"0px 0px -6% 0px", threshold:0.05});
+  Array.prototype.forEach.call(document.querySelectorAll(".rise"), function(el){ io.observe(el); });
+
+  /* ---------- objects driven by scroll ---------- */
+  var active = [];
+  var io2 = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var i = active.indexOf(e.target);
+      if(e.isIntersecting){ if(i < 0) active.push(e.target); }
+      else if(i > -1){ active.splice(i,1); }
+    });
+  },{rootMargin:"30% 0px 30% 0px"});
+  Array.prototype.forEach.call(document.querySelectorAll("[data-3d]"), function(el){ io2.observe(el); });
+
+  /* ---------- burette rail ---------- */
+  var live = document.getElementById("buLive"),
+      drop = document.getElementById("buDrop"),
+      drop2 = document.getElementById("buDrop2"),
+      pct  = document.getElementById("buPct"),
+      rail = document.querySelector(".burette");
+  var LEN = live.getTotalLength();
+  live.style.strokeDasharray = LEN;
+  live.style.strokeDashoffset = LEN;
+
+  var secs = Array.prototype.slice.call(document.querySelectorAll(".sec"));
+  var ioT = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var t = getComputedStyle(e.target).getPropertyValue("--tint");
+        if(t) rail.style.setProperty("--tint", t.trim());
+      }
+    });
+  },{rootMargin:"-45% 0px -45% 0px"});
+  secs.forEach(function(s){ ioT.observe(s); });
+
+  /* ---------- one animation loop for everything ---------- */
+  var target = window.pageYOffset || 0, cur = target, vh = window.innerHeight;
+  window.addEventListener("scroll", function(){
+    target = window.pageYOffset || document.documentElement.scrollTop;
+  }, {passive:true});
+  window.addEventListener("resize", function(){ vh = window.innerHeight; }, {passive:true});
+
+  var rects = [];
+  function frame(){
+    cur += (target - cur) * (reduce ? 1 : 0.15);
+    if(Math.abs(target - cur) < 0.15) cur = target;
+
+    var max = document.documentElement.scrollHeight - vh;
+    var prog = max > 0 ? cur / max : 0;
+    prog = prog < 0 ? 0 : prog > 1 ? 1 : prog;
+
+    /* read phase */
+    rects.length = 0;
+    for(var i = 0; i < active.length; i++){ rects.push(active[i].getBoundingClientRect()); }
+
+    /* write phase */
+    for(var j = 0; j < active.length; j++){
+      var r = rects[j];
+      var p = (vh - r.top) / (vh + r.height);
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      active[j].style.setProperty("--p", p.toFixed(3));
+    }
+
+    var at = LEN * prog;
+    var pt = live.getPointAtLength(at);
+    drop.setAttribute("cx", pt.x);  drop.setAttribute("cy", pt.y);
+    drop2.setAttribute("cx", pt.x); drop2.setAttribute("cy", pt.y);
+    live.style.strokeDashoffset = LEN - at;
+    if(pct) pct.textContent = ("0" + Math.round(prog * 100)).slice(-2);
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* ---------- indicator test tubes ---------- */
+  var IND = {
+    water:{ blue:["#3E8BFF","stays blue"], red:["#FF4D5E","stays red"],
+            phen:["rgba(255,255,255,.16)","colourless"], mo:["#FF8A3D","orange"] },
+    acid :{ blue:["#FF4D5E","turns RED"],  red:["#FF4D5E","stays red"],
+            phen:["rgba(255,255,255,.16)","stays colourless"], mo:["#E5342E","turns RED"] },
+    base :{ blue:["#3E8BFF","stays blue"], red:["#3E8BFF","turns BLUE"],
+            phen:["#FF4FA3","turns PINK"], mo:["#F2D227","turns YELLOW"] }
+  };
+  function setInd(state){
+    var map = IND[state];
+    Object.keys(map).forEach(function(k){
+      var tube = document.querySelector('.tube[data-ind="' + k + '"]');
+      var out  = document.querySelector('[data-out="' + k + '"]');
+      if(tube) tube.querySelector(".tube__liq").style.background = map[k][0];
+      if(out)  out.textContent = map[k][1];
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".btn[data-on]"), function(b){
+      b.classList.toggle("on", b.getAttribute("data-on") === state);
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".btn[data-on]"), function(b){
+    b.addEventListener("click", function(){ setInd(b.getAttribute("data-on")); });
+  });
+  setInd("water");
+
+  /* ---------- lime water ---------- */
+  var beaker = document.getElementById("limeBeaker"),
+      limeBtn = document.getElementById("limeBtn"),
+      limeCap = document.getElementById("limeCap"),
+      limeState = 0;
+  if(limeBtn){
+    limeBtn.addEventListener("click", function(){
+      limeState = (limeState + 1) % 3;
+      beaker.classList.toggle("milky", limeState === 1);
+      beaker.classList.toggle("clear2", limeState === 2);
+      if(limeState === 0){
+        limeCap.innerHTML = "Clear lime water";
+        limeBtn.innerHTML = "Pass CO<sub>2</sub> through it";
+      } else if(limeState === 1){
+        limeCap.innerHTML = "Milky &mdash; CaCO<sub>3</sub> has formed";
+        limeBtn.innerHTML = "Keep passing excess CO<sub>2</sub>";
+      } else {
+        limeCap.innerHTML = "Clear again &mdash; soluble Ca(HCO<sub>3</sub>)<sub>2</sub>";
+        limeBtn.innerHTML = "Start over";
+      }
+    });
+  }
+
+  /* ---------- copper sulphate crystal ---------- */
+  var cube = document.getElementById("cuCube"),
+      heatBtn = document.getElementById("heatBtn"),
+      cuCap = document.getElementById("cuCap");
+  if(heatBtn){
+    heatBtn.addEventListener("click", function(){
+      var hot = cube.classList.toggle("hot");
+      cuCap.innerHTML = hot
+        ? "White &mdash; water of crystallisation driven off"
+        : "Blue crystals &mdash; CuSO<sub>4</sub>&middot;5H<sub>2</sub>O";
+      heatBtn.innerHTML = hot ? "\uD83D\uDCA7 Add water back" : "\uD83D\uDD25 Heat the crystals";
+    });
+  }
+
+  /* ---------- pH drum ---------- */
+  var PH = [
+    [0, "#C81E1E","1 M hydrochloric acid","Very strongly acidic"],
+    [1, "#E03418","Gastric juice, about 1.2","Strongly acidic"],
+    [2, "#EF5B18","Lemon juice, about 2.2","Strongly acidic"],
+    [3, "#F58020","Vinegar, aerated drink","Acidic"],
+    [4, "#F5A623","Tomato juice","Acidic"],
+    [5, "#EFCB2E","Black coffee. Acid rain is below 5.6","Acidic"],
+    [6, "#C8D62F","Milk, saliva before a meal","Weakly acidic"],
+    [7, "#4CAF50","Pure water. Blood is 7.4","Neutral"],
+    [8, "#35B98A","Sea water","Weakly basic"],
+    [9, "#2A9FA8","Baking soda solution","Basic"],
+    [10,"#2E7FBF","Milk of magnesia","Basic"],
+    [11,"#2E5FC0","Ammonia solution","Strongly basic"],
+    [12,"#3C46B4","Lime water","Strongly basic"],
+    [13,"#4A2FA0","Soapy water","Strongly basic"],
+    [14,"#5B1F86","1 M sodium hydroxide, about 14","Very strongly alkaline"]
+  ];
+  var cyl = document.getElementById("drumCyl"),
+      strip = document.getElementById("phStrip"),
+      slide = document.getElementById("phSlide"),
+      numEl = document.getElementById("phNum"),
+      nameEl = document.getElementById("phName"),
+      natEl = document.getElementById("phNat"),
+      R = 146, STEP = 24;
+
+  if(cyl){
+    PH.forEach(function(row, i){
+      var f = document.createElement("div");
+      f.className = "face";
+      f.style.background = "linear-gradient(180deg," + row[1] + ",rgba(0,0,0,.28)), " + row[1];
+      f.style.transform = "rotateX(" + (i * STEP) + "deg) translateZ(" + R + "px)";
+      f.style.color = i >= 8 ? "#F2F7FF" : "#08101C";
+      f.innerHTML = "<b>" + row[0] + "</b><span>" + row[2] + "</span>";
+      cyl.appendChild(f);
+
+      var b = document.createElement("button");
+      b.type = "button";
+      b.style.background = row[1];
+      b.style.color = i >= 9 ? "#fff" : "#08101C";
+      b.textContent = row[0];
+      b.setAttribute("aria-label", "pH " + row[0] + ", " + row[2]);
+      b.addEventListener("click", function(){ setPH(i); });
+      strip.appendChild(b);
+    });
+  }
+
+  function setPH(i){
+    var row = PH[i];
+    cyl.style.transform = "translate(-50%,-50%) rotateX(" + (-i * STEP) + "deg)";
+    numEl.textContent = row[0];
+    nameEl.textContent = row[2];
+    natEl.textContent = row[3];
+    document.querySelector(".ph__out").style.setProperty("--ph-c", row[1]);
+    natEl.style.color = row[1];
+    numEl.style.color = row[1];
+    if(slide.value !== String(i)) slide.value = i;
+    Array.prototype.forEach.call(strip.children, function(b, k){ b.classList.toggle("on", k === i); });
+  }
+  if(slide){
+    slide.addEventListener("input", function(){ setPH(parseInt(slide.value, 10)); });
+    setPH(7);
+  }
+
+  /* ---------- chapter map ---------- */
+  var mb = document.getElementById("mapBtn"), mp = document.getElementById("mapPanel");
+  function closeMap(){ mb.classList.remove("open"); mp.classList.remove("open"); mb.setAttribute("aria-expanded","false"); }
+  mb.addEventListener("click", function(e){
+    e.stopPropagation();
+    var open = mb.classList.toggle("open");
+    mp.classList.toggle("open", open);
+    mb.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  mp.addEventListener("click", function(e){ if(e.target.tagName === "A") closeMap(); });
+  document.addEventListener("click", function(e){ if(!mp.contains(e.target) && e.target !== mb) closeMap(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeMap(); });
+})();
+</script>
+
+</body>
+</html>
